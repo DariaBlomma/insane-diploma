@@ -485,6 +485,11 @@ template, [hidden] {
     opacity: 0;
 }
 
+.header-contacts__phone-number-accord a.opened {
+  opacity: 1;
+  margin-top: 30px;
+}
+
 .header-contacts__arrow {
     cursor: pointer;
     -webkit-transition: 0.5s;

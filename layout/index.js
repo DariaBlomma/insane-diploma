@@ -4,13 +4,10 @@ const openPhoneNumber = () => {
     document.addEventListener('click', event => {
         const target = event.target;
         if (target.closest('.header-contacts__arrow')) {
-            accordNumber.style.opacity = 1;
-            accordNumber.style.marginTop = '30px';
-            accordNumber.classList.add('opened');
+            accordNumber.classList.toggle('opened');
         } else if (accordNumber.classList.contains('opened')) {
+          // закрываем при клике вне стрелки
             accordNumber.classList.remove('opened');
-            accordNumber.style.opacity = 0;
-            accordNumber.style.marginTop = '';
         }
     });
 };
@@ -57,13 +54,15 @@ const toggleMenu = () => {
 toggleMenu();
 
 const scroll = () => {
+  // проверка, что это не заглушка, а реальный якорь
+    const reg = /#(?=\D+)/g;
     const anchors = [].slice.call(document.querySelectorAll('a[href*="#"]')),
         animationTime = 500,
         framesCount = 20;
     document.addEventListener('click', e => {
         const target = e.target;
         anchors.forEach(item => {
-            if (target === item) {
+            if (item.href.match(reg) !== null && target === item) {
                 e.preventDefault();
                 const coordY = document.querySelector(item.getAttribute('href'))
                     .getBoundingClientRect().top + window.pageYOffset;
@@ -96,3 +95,16 @@ const scroll = () => {
 };
 
 scroll();
+
+const toggleFullList = () => {
+    const popupRepairTypes = document.querySelector('.popup-repair-types');
+    document.addEventListener('click', event => {
+        const target = event.target;
+        if (target.closest('.link-list.link-list-repair') || target.closest('.menu-link.no-overflow')) {
+            popupRepairTypes.style.visibility = 'visible';
+        } else if (target.closest('.popup-repair-types .close')) {
+            popupRepairTypes.style.visibility = 'hidden';
+        }
+    })
+};
+toggleFullList();
