@@ -6,7 +6,7 @@ const openPhoneNumber = () => {
         if (target.closest('.header-contacts__arrow')) {
             accordNumber.classList.toggle('opened');
         } else if (accordNumber.classList.contains('opened')) {
-          // закрываем при клике вне стрелки
+            // закрываем при клике вне стрелки
             accordNumber.classList.remove('opened');
         }
     });
@@ -54,7 +54,7 @@ const toggleMenu = () => {
 toggleMenu();
 
 const scroll = () => {
-  // проверка, что это не заглушка, а реальный якорь
+    // проверка, что это не заглушка, а реальный якорь
     const reg = /#(?=\D+)/g;
     const anchors = [].slice.call(document.querySelectorAll('a[href*="#"]')),
         animationTime = 500,
@@ -108,3 +108,18 @@ const toggleFullList = () => {
     })
 };
 toggleFullList();
+
+const validation = () => {
+
+    const phones = document.querySelectorAll('[placeholder="Введите номер телефона"]');
+    document.addEventListener('input', event => {
+        const target = event.target;
+        phones.forEach(item => {
+            if (target === item) {
+                item.value = item.value.replace(/\D/g, '');
+            }
+        })
+    });
+    maskPhone('[placeholder="Введите номер телефона"]');
+};
+validation();
