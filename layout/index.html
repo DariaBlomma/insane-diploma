@@ -166,7 +166,7 @@
 							<div class="feedback__input">
 								<input class="input feedback__input-input" name="phone" type="text"
 									   placeholder="Введите номер телефона" id="feedback-input1"
-									   minlength="18"></div>
+									   minlength="18" required></div>
 							<button class="button">Перезвоните мне</button>
 							<div class="checkbox"><input class="checkbox__input" type="checkbox" id="checkbox1"> <label
 									class="checkbox__label" for="checkbox1"></label>
@@ -786,7 +786,7 @@
 					<div class="feedback__title">Получите консультацию от специалиста в удобное для Вас время</div>
 					<form class="feedback__form" id="feedback3">
 						<div class="feedback__input"><input class="input feedback__input-input" name="phone" type="text"
-															placeholder="Введите номер телефона" id="feedback-input3" minlength="18">
+															placeholder="Введите номер телефона" id="feedback-input3" minlength="18" required>
 						</div>
 						<button class="button">Перезвоните мне</button>
 						<div class="checkbox"><input class="checkbox__input" type="checkbox" id="checkbox3"> <label
@@ -1256,7 +1256,7 @@
 			<div class="feedback__title">Получите консультацию от специалиста в удобное для Вас время</div>
 			<form class="feedback__form" id="feedback6">
 				<div class="feedback__input"><input class="input feedback__input-input" name="phone" type="text"
-													placeholder="Введите номер телефона" id="feedback-input6" minlength="18">
+													placeholder="Введите номер телефона" id="feedback-input6" minlength="18" required>
 				</div>
 				<button class="button button-consultation">Перезвоните мне</button>
 				<div class="checkbox"><input class="checkbox__input" type="checkbox" id="checkbox6"> <label
@@ -1286,6 +1286,25 @@
 				<div class="popup-thank__logo">Relax Live</div>
 			</div>
 		</div><!-- /feedback --></div>
+    <div class="popup popup-error">
+      <div class="feedback-wrap popup-thank-bg">
+        <div class="close close-thank">
+          <svg width="22" height="22" fill="none" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+            <mask id="a" fill="#fff">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M21.673.327a1.118 1.118 0 0 0-1.581 0L11 9.42 1.909.327A1.118 1.118 0 0 0 .327 1.91L9.42 11 .327 20.091a1.118 1.118 0 1 0 1.582 1.581L11 12.582l9.091 9.09a1.118 1.118 0 1 0 1.581-1.58L12.582 11l9.09-9.091a1.118 1.118 0 0 0 0-1.582z"></path>
+            </mask>
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M21.673.327a1.118 1.118 0 0 0-1.581 0L11 9.42 1.909.327A1.118 1.118 0 0 0 .327 1.91L9.42 11 .327 20.091a1.118 1.118 0 1 0 1.582 1.581L11 12.582l9.091 9.09a1.118 1.118 0 1 0 1.581-1.58L12.582 11l9.09-9.091a1.118 1.118 0 0 0 0-1.582z"
+                fill="#fff" fill-opacity=".8"></path>
+          </svg>
+        </div>
+        <div class="popup-thank-content">
+          <div class="popup-thank__title"></div>
+          <div class="popup-thank__descr">Что-то пошло не так ...</div>
+          <div class="popup-thank__logo">Relax Live</div>
+        </div>
+      </div><!-- /feedback --></div>
 	<div class="popup popup-repair-types">
 		<div class="close mobile-hide">
 			<svg width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
