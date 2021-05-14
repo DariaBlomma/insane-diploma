@@ -1,5 +1,5 @@
-import './index.html';
-import './css/style.css';
+// import './index.html';
+// import './css/style.css';
 
 const openPhoneNumber = () => {
     const accordNumber = document.querySelector('.header-contacts__phone-number-accord a');
@@ -98,19 +98,6 @@ const scroll = () => {
 
 scroll();
 
-const toggleFullList = () => {
-    const popupRepairTypes = document.querySelector('.popup-repair-types');
-    document.addEventListener('click', event => {
-        const target = event.target;
-        if (target.closest('.link-list.link-list-repair') || target.closest('.menu-link.no-overflow')) {
-            popupRepairTypes.style.visibility = 'visible';
-        } else if (target.closest('.popup-repair-types .close')) {
-            popupRepairTypes.style.visibility = 'hidden';
-        }
-    })
-};
-toggleFullList();
-
 const validation = () => {
     const phones = document.querySelectorAll('[name="phone"]');
     document.addEventListener('input', event => {
@@ -124,6 +111,32 @@ const validation = () => {
     maskPhone('[name="phone"]');
 };
 validation();
+
+const openPopups = (popupSelector, elemSelector) => {
+    if (elemSelector === '.consult') {
+        const btns = document.querySelectorAll('.button');
+        btns.forEach(item => {
+            if (item.textContent === 'Проконсультироваться') {
+                item.classList.add('consult');
+            }
+        })
+    }
+    const popup = document.querySelector(popupSelector);
+    const closeBtn = popup.querySelector('.close');
+    document.addEventListener('click', event => {
+        const target = event.target;
+        if (target.closest(elemSelector)) {
+            popup.style.visibility = 'visible';
+        } else if (target === closeBtn) {
+            popup.style.visibility = 'hidden';
+        }
+    });
+};
+openPopups('.popup-repair-types', '.link-list');
+openPopups('.popup-privacy', '.checkbox__descr span');
+openPopups('.popup-transparency', '.transparency-item__img');
+openPopups('.popup-consultation', '.consult');
+openPopups('.popup-portfolio', '.portfolio-slider__slide-frame');
 
 const sendForm = () => {
     const doAjax = formId => {
@@ -208,19 +221,3 @@ const sendForm = () => {
 };
 
 sendForm();
-
-const openPopups = (popupSelector, elemSelector) => {
-    // .checkbox__descr span
-    const popup = document.querySelector(popupSelector);
-    const closeBtn = popup.querySelector('.close');
-    document.addEventListener('click', event => {
-        const target = event.target;
-        if (target.closest(elemSelector)) {
-            popup.style.visibility = 'visible';
-        } else if (target === closeBtn) {
-            popup.style.visibility = 'hidden';
-        }
-    });
-};
-openPopups('.popup-privacy', '.checkbox__descr span');
-
