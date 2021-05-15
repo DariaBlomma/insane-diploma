@@ -138,6 +138,68 @@ openPopups('.popup-transparency', '.transparency-item__img');
 openPopups('.popup-consultation', '.consult');
 openPopups('.popup-portfolio', '.portfolio-slider__slide-frame');
 
+
+const openPopupsHover = () => {
+    const toggleBlock = (target, action, elem) => {
+        let item = target.closest(elem);
+        let items;
+        let popup;
+        let slides;
+        if (item && !target.closest('.formula-item-popup')) {
+            const top = target.getBoundingClientRect().top;
+            const text = target.textContent.trim().match(/\d+/g);
+            const slideNumber = String(text).slice(-1) - 1;
+            if (elem === '.formula-slider__slide') {
+                slides = document.querySelectorAll('.formula-slider__slide');
+                items = document.querySelectorAll(`${elem} .formula-item__icon`);
+                popup = document.querySelector(`${elem} .formula-item-popup-${text}`);
+            } else {
+                popup = document.querySelector(`.formula-item-popup-${text}`);
+            }
+
+            if (top < popup.clientHeight) {
+                popup.style.bottom = `-${popup.clientHeight + 10}px`;
+                // подумать как применить стили к псевдоэлементу before
+                popup.classList.toggle('formula-popup-opened.down');
+            } else {
+                popup.style.bottom = '90px';
+                popup.classList.remove('formula-popup-opened.down');
+            }
+
+            if (action === 'toggle') {
+                popup.classList.toggle('formula-popup-opened');
+                item.classList.toggle('opened');
+                items[slideNumber].classList.toggle('opened');
+                slides[slideNumber].classList.toggle('slide-opened');
+                console.log('slides[slideNumber]: ', slides[slideNumber]);
+            }
+            if (action === 'remove') {
+                popup.classList.remove('formula-popup-opened');
+                item.classList.remove('opened');
+            }
+        }
+    };
+
+    if (window.innerWidth > 1200) {
+        document.addEventListener('mouseover', event => {
+            const target = event.target;
+            toggleBlock(target, 'toggle', '.formula-item__icon');
+        });
+        document.addEventListener('mouseout', event => {
+            const target = event.target;
+            toggleBlock(target, 'remove', '.formula-item__icon');
+        });
+    } else {
+        document.addEventListener('click', event => {
+            const target = event.target;
+            toggleBlock(target, 'toggle', '.formula-slider__slide');
+        });
+    }
+
+};
+
+openPopupsHover();
+
 const sendForm = () => {
     const doAjax = formId => {
         const form = document.getElementById(formId);
@@ -221,3 +283,97 @@ const sendForm = () => {
 };
 
 sendForm();
+
+const formulaSlider = () => {
+    if (window.innerWidth < 1200) {
+        const slides = document.querySelectorAll('.formula-slider__slide'),
+            arrowLeft = document.querySelector('.slider-arrow_left-formula'),
+            arrowRight = document.querySelector('.slider-arrow_right-formula'),
+            formula = document.querySelector('.formula'),
+            formulaSlider = document.querySelector('.formula-slider');
+        formulaSlider.style.display = 'flex';
+        formulaSlider.style.marginTop = '0';
+        arrowLeft.style.top = '66%';
+        arrowRight.style.top = '66%';
+
+        let currentSlide = 0;
+
+        const initialState = () => {
+            slides[slides.length - 1].style.order = -1;
+            slides[slides.length - 1].classList.remove('hidden');
+            slides[0].classList.add('active');
+            slides[0].style.order = 0;
+            const lastSlide = document.querySelector('[style="order: 5"]');
+            console.log('lastSlide: ', lastSlide);
+        };
+
+        const prevSlide = (elem, index, strClass) => {
+            elem[index].classList.remove(strClass);
+        };
+
+        const nextSlide = (elem, index, strClass) => {
+            slides[slides.length - 1].style.order = slides.length - 1;
+
+            slides[slides.length - 1].classList.add('hidden');
+            elem[index].classList.add(strClass);
+
+            if ( elem[index + 1]) {
+                elem[index + 1].classList.remove('hidden');
+            }
+
+            if (elem[index - 2]) {
+                elem[index - 2].classList.add('hidden');
+            }
+        };
+
+        slides.forEach((item, index) => {
+            if (index > 1) {
+                item.classList.add('hidden');
+            }
+        });
+
+        if (currentSlide === 0) {
+            initialState();
+        }
+
+        formula.addEventListener('click', event => {
+            event.preventDefault();
+            const target = event.target;
+
+            if (!target.closest('.slider-arrow_left-formula, .slider-arrow_right-formula')) {
+                return;
+            }
+
+            prevSlide(slides, currentSlide, 'active');
+
+            if (target.closest('.slider-arrow_right-formula')) {
+                currentSlide++;
+            } else if (target.closest('.slider-arrow_left-formula')) {
+                currentSlide--;
+            }
+
+            if (currentSlide === slides.length - 1) {
+                slides[0].style.order = slides.length;
+                slides[0].classList.remove('hidden');
+                slides[slides.length - 3].classList.add('hidden')
+            }
+
+            console.log('currentSlide: ', currentSlide);
+            if (currentSlide >= slides.length) {
+                //initialState();
+                currentSlide = 0;
+            }
+
+            if (currentSlide < 0) {
+                currentSlide = slides.length - 1;
+                slides[0].style.order = slides.length - 1;
+                slides[slides.length - 1].style.order = 0;
+                slides[slides.length - 1].classList.add('hidden');
+            }
+            nextSlide(slides, currentSlide, 'active');
+        });
+    };
+};
+
+formulaSlider();
+

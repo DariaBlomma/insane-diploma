@@ -1065,6 +1065,20 @@ template, [hidden] {
     background-position: center -65px;
 }
 
+.formula-popup-opened {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.formula-popup-opened:before.down {
+  -webkit-transform: rotate(180deg) !important;
+  transform: rotate(180deg) !important;
+}
+
+.formula-item__icon.opened {
+  background: -webkit-gradient(linear, left top, right top, from(#F48922), to(#FFB015));
+  background: linear-gradient(90deg, #F48922 0%, #FFB015 100%);
+}
 @media (max-width: 1024px) {
     .formula {
         padding: 0 0 35px;
