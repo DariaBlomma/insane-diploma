@@ -303,8 +303,6 @@ const formulaSlider = () => {
             slides[slides.length - 1].classList.remove('hidden');
             slides[0].classList.add('active');
             slides[0].style.order = 0;
-            const lastSlide = document.querySelector('[style="order: 5"]');
-            console.log('lastSlide: ', lastSlide);
         };
 
         const prevSlide = (elem, index, strClass) => {
@@ -377,3 +375,97 @@ const formulaSlider = () => {
 
 formulaSlider();
 
+const repairSlider = () => {
+    const repairTypes = document.getElementById('repair-types');
+    const arrowLeft = document.getElementById('repair-types-arrow_left');
+    const arrowRight = document.getElementById('repair-types-arrow_right');
+    const navItems = document.querySelectorAll('.repair-types-nav__item');
+    const navListRepair = document.querySelector('.nav-list-repair');
+    const counterCurrent = document.querySelector('.slider-counter-content__current');
+    const counterTotal = document.querySelector('.slider-counter-content__total');
+    const repairTypesSlides = [...document.querySelector('.repair-types-slider').children];
+    // эти эл-ты будут переключаться всегда
+    const slides = document.querySelectorAll('.repair-types-slider__slide');
+    // внутри картинка для определенного типа. Скрывать весь блок
+
+    counterTotal.textContent = repairTypesSlides.length;
+    let currentSlide = 0;
+    let currentSlideBtn = 0;
+    const prevSlide = (elem, index, strClass) => {
+        elem[index].classList.add(strClass);
+    };
+
+    const nextSlide = (elem, index, strClass) => {
+        elem[index].classList.remove(strClass);
+    };
+
+    repairTypesSlides.forEach(elem => {
+        elem.classList.add('repair-hidden');
+    });
+
+    repairTypesSlides[0].classList.remove('repair-hidden');
+
+    repairTypes.addEventListener('click', event => {
+        event.preventDefault();
+        const target = event.target;
+
+        if (document.querySelector('#nav-arrow-repair-right_base')) {
+            if (target.closest('#nav-arrow-repair-right_base')) {
+                const btn = navListRepair.children[0];
+                const clone = btn.cloneNode(true);
+                navListRepair.append(clone);
+                btn.remove();
+            } else if (target.closest('#nav-arrow-repair-left_base')) {
+                const btn = navListRepair.children[navListRepair.children.length - 1];
+                const clone = btn.cloneNode(true);
+                navListRepair.prepend(clone);
+                btn.remove();
+            }
+        }
+
+        const closestBtn = target.closest('.repair-types-nav__item');
+        if (closestBtn) {
+            const navItems = document.querySelectorAll('.repair-types-nav__item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            target.classList.add('active');
+            const type = target.dataset.repair;
+            slides.forEach(item => {
+                item.classList.remove('repair-hidden');
+                const alt = item.querySelector('img').alt;
+                if (alt !== type) {
+                    item.classList.add('repair-hidden');
+                }
+            });
+        };
+
+        if (!target.closest('#repair-types-arrow_left, #repair-types-arrow_right')) {
+            return;
+        }
+
+
+        prevSlide(repairTypesSlides, currentSlide, 'repair-hidden');
+
+        if (target.closest('#repair-types-arrow_right')) {
+            currentSlide++;
+        } else if (target.closest('#repair-types-arrow_left')) {
+            currentSlide--;
+        }
+
+        if (currentSlide >= repairTypesSlides.length) {
+            currentSlide = 0;
+        }
+
+        if (currentSlide < 0) {
+            currentSlide = repairTypesSlides.length - 1;
+        }
+
+        counterCurrent.textContent = currentSlide + 1;
+        nextSlide(repairTypesSlides, currentSlide, 'repair-hidden');
+    });
+
+
+
+};
+repairSlider();

@@ -430,7 +430,7 @@
 					<div class="nav-wrap nav-wrap-repair">
 						<nav class="nav repair-types-nav">
 							<div class="nav-list nav-list-repair">
-								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-1 active">
+								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-1 active" data-repair='electro'>
 									<svg width="259" height="46" fill="none" viewBox="0 0 259 46" preserveAspectRatio="xMinYMin meet">
 										<path
 												d="M33.5 1h-10c-12.15 0-22 9.85-22 22s9.85 22 22 22h187M48.5 1h187c12.15 0 22 9.85 22 22s-9.85 22-22 22h-17.1"
@@ -438,7 +438,7 @@
 									</svg>
 									Частичный ремонт
 								</button><!-- /.repair-types__nav-item -->
-								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-2">
+								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-2" data-repair='cosmetic'>
 									<svg width="300" height="46" fill="none" viewBox="0 0 300 46" preserveAspectRatio="xMinYMin meet">
 										<path
 												d="M38.25 1H23C10.85 1 1 10.85 1 23s9.85 22 22 22h221.289M55.711 1H277c12.15 0 22 9.85 22 22s-9.85 22-22 22h-23.515"
@@ -446,7 +446,7 @@
 									</svg>
 									Косметический ремонт
 								</button><!-- /.repair-types__nav-item -->
-								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-3">
+								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-3" data-repair='capital'>
 									<svg width="281" height="46" fill="none" viewBox="0 0 281 46" preserveAspectRatio="xMinYMin meet">
 										<path
 												d="M35.875 1H23C10.85 1 1 10.85 1 23s9.85 22 22 22h205.777M52.223 1H258c12.15 0 22 9.85 22 22s-9.85 22-22 22h-20.613"
@@ -454,7 +454,7 @@
 									</svg>
 									Капитальный ремонт
 								</button><!-- /.repair-types__nav-item -->
-								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-4">
+								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-4" data-repair='electro'>
 									<svg width="268" height="46" fill="none" viewBox="0 0 268 46" preserveAspectRatio="xMinYMin meet">
 										<path
 												d="M34.25 1H23C10.85 1 1 10.85 1 23s9.85 22 22 22h195.164M49.836 1H245c12.15 0 22 9.85 22 22s-9.85 22-22 22h-18.627"
@@ -462,7 +462,7 @@
 									</svg>
 									Евроремонт ремонт
 								</button><!-- /.repair-types__nav-item -->
-								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-5">
+								<button type="button" class="button_o repair-types-nav__item repair-types-nav__item-5" data-repair='cosmetic'>
 									<svg width="324" height="46" fill="none" viewBox="0 0 324 46" preserveAspectRatio="xMinYMin meet">
 										<path
 												d="M41.25 1H23C10.85 1 1 10.85 1 23s9.85 22 22 22h240.883M60.117 1H301c12.15 0 22 9.85 22 22s-9.85 22-22 22h-27.18"
@@ -2234,5 +2234,30 @@
 	</div>
   <script src="maskPhone.js"></script>
 	<script src="index.js"></script>
+  <!-- <script src= "sliderCarousel.js"></script>
+	<script>
+		const carousel = new SliderCarousel({
+			main: '.nav-wrap-repair',
+			wrap: '.nav-list-repair',
+			prev: '#nav-arrow-repair-left_base',
+			next: '#nav-arrow-repair-right_base',
+			slidesToShow: 3,
+			infinity: true,
+			responsive: [{
+				breakpoint: 1024,
+				slidesToShow: 3
+			},
+			{
+				breakpoint: 768,
+				slidesToShow: 2
+			},
+			{
+				breakpoint: 576,
+				slidesToShow: 1
+			}
+		]
+		});
+		carousel.init();
+	</script> -->
 </body>
 </html>

@@ -1637,6 +1637,9 @@ template, [hidden] {
     z-index: 0;
 }
 
+.repair-hidden {
+    display: none;
+}
 @media (max-width: 1024px) {
     .repair-types {
         padding: 92px 0 100px 0;
