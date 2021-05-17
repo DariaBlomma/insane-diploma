@@ -637,7 +637,7 @@ sliders();
 
 
 //  не работает в обратную сторону
-const formulaTabletSlider = new Slider2({
+const formulaTabletSlider = new Slider3({
     slides: '.formula-slider__slide',
     wrapToClick: '.formula',
     arrowRight: '.slider-arrow_right-formula',
