@@ -622,6 +622,16 @@ const sliders = () => {
       counterTotal: '.popup-transparency-slider-wrap .slider-counter-content__total',
     });
     documentsInnerSlider.init();
+
+    const reviewsSlider = new Slider({
+      slides: '.reviews-slider__slide',
+      wrapToClick: '#reviews',
+      arrowRight: '#reviews-arrow_right',
+      arrowLeft: '#reviews-arrow_left',
+      classToChange: 'transparency-hidden',
+      classAction: 'remove',
+    });
+    reviewsSlider.init();
 };
 sliders();
 
