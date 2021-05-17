@@ -112,7 +112,11 @@ const validation = () => {
 };
 validation();
 
-const openPopups = (popupSelector, elemSelector) => {
+const openPopups = (popupSelector, elemSelector, textSelector) => {
+    let text;
+    if (textSelector) {
+        text = document.querySelector(textSelector);
+    }
     if (elemSelector === '.consult') {
         const btns = document.querySelectorAll('.button');
         btns.forEach(item => {
@@ -155,20 +159,31 @@ const openPopups = (popupSelector, elemSelector) => {
             condition = target.closest(elemSelector);
         }
         if (condition) {
-            const hovers = document.querySelectorAll('.portfolio-slider-wrap .item-hover');
-            hovers.forEach(item => {
-                item.style.visibility = 'visible';
-                item.style.opacity = 1;
-            });
+            // const hovers = document.querySelectorAll('.portfolio-slider-wrap .item-hover');
+            // hovers.forEach(item => {
+            //     item.style.visibility = 'visible';
+            //     item.style.opacity = 1;
+            // });
             popup.style.visibility = 'visible';
+            if (text) {
+                text.style.display = 'block';
+            }
+
+
         } else if (target === closeBtn) {
-            hovers.forEach(item => {
-                item.style.visibility = 'hidden';
-                item.style.opacity = 0;
-            });
+            // hovers.forEach(item => {
+            //     item.style.visibility = 'hidden';
+            //     item.style.opacity = 0;
+            // });
             popup.style.visibility = 'hidden';
+            if (text) {
+                text.style.display = 'none';
+            }
         } else {
-            popup.style.visibility = 'hidden';
+            if (window.innerWidth < 575 && target.classList.contains('close')) {
+                popup.style.visibility = 'hidden';
+            }
+
         }
     });
 };
@@ -176,7 +191,7 @@ openPopups('.popup-repair-types', '.link-list');
 openPopups('.popup-privacy', '.checkbox__descr span');
 openPopups('.popup-transparency', '.transparency-item__img');
 openPopups('.popup-consultation', '.consult');
-openPopups('.popup-portfolio', '.portfolio-slider__slide-frame');
+openPopups('.popup-portfolio', '.portfolio-slider__slide-frame', '.popup-portfolio-text');
 
 
 
@@ -505,58 +520,101 @@ const repairSlider = () => {
 repairSlider();
 
 
-const portfolioMainSlider = () => {
-  const sliderPortfolioMobile = new Slider({
-    slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
-    wrapToClick: '.portfolio-slider-wrap',
-    arrowRight: '.slider-arrow-tablet-mobile_right svg',
-    arrowLeft: '.slider-arrow-tablet-mobile_left svg',
-    classToChange: 'portfolio-hidden',
-    classAction: 'remove',
-    breakpoint: 575,
-    counterCurrent: '.portfolio .slider-counter-content__current',
-    counterTotal: '.portfolio .slider-counter-content__total',
-    arrowProblem: true
-});
-sliderPortfolioMobile.init();
+const portfolioSliders = () => {
+    const sliderPortfolioMobile = new Slider({
+        slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
+        wrapToClick: '.portfolio-slider-wrap',
+        arrowRight: '.slider-arrow-tablet-mobile_right svg',
+        arrowLeft: '.slider-arrow-tablet-mobile_left svg',
+        classToChange: 'portfolio-hidden',
+        classAction: 'remove',
+        breakpoint: 575,
+        counterCurrent: '.portfolio .slider-counter-content__current',
+        counterTotal: '.portfolio .slider-counter-content__total',
+        arrowProblem: true
+    });
+    sliderPortfolioMobile.init();
 
 
-const sliderPortfolioTablet = new Slider({
-  slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
-  wrapToClick: '.portfolio-slider-wrap',
-  arrowRight: '#portfolio-arrow_right',
-  slidesOnPage: 2,
-  classToChange: 'portfolio-hidden',
-  classAction: 'remove',
-  breakpoint: 1024,
-  breakpoint2: 575,
-  infinity: false
-});
-sliderPortfolioTablet.init();
+    const sliderPortfolioTablet = new Slider({
+        slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
+        wrapToClick: '.portfolio-slider-wrap',
+        arrowRight: '#portfolio-arrow_right',
+        slidesOnPage: 2,
+        classToChange: 'portfolio-hidden',
+        classAction: 'remove',
+        breakpoint: 1024,
+        breakpoint2: 575,
+        infinity: false
+    });
+    sliderPortfolioTablet.init();
 
-const sliderPortfolioDesctop = new Slider({
-  slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
-  wrapToClick: '.portfolio-slider-wrap',
-  arrowRight: '#portfolio-arrow_right',
-  slidesOnPage: 3,
-  classToChange: 'portfolio-hidden',
-  classAction: 'remove',
-  breakpoint2: 1024,
-  infinity: false
-});
-sliderPortfolioDesctop.init();
+    const sliderPortfolioDesctop = new Slider({
+        slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
+        wrapToClick: '.portfolio-slider-wrap',
+        arrowRight: '#portfolio-arrow_right',
+        slidesOnPage: 3,
+        classToChange: 'portfolio-hidden',
+        classAction: 'remove',
+        breakpoint2: 1024,
+        infinity: false
+    });
+    sliderPortfolioDesctop.init();
+
+    //  нет стрелок и счетчика в верстке
+
+    // const sliderInnerPortfolioDesctop = new Slider({
+    //   slides: '.popup-portfolio-slider__slide',
+    //   wrapToClick: '.popup-portfolio-slider',
+    //   arrowRight: '#popup_portfolio_right',
+    //      arrowLeft: '#popup_portfolio_left',
+    //   classToChange: 'portfolio-hidden',
+    //   classAction: 'remove',
+    //   breakpoint2: 1024,
+    //   infinity: false
+    // });
+    // sliderInnerPortfolioDesctop.init();
+
+    const sliderInnerPortfolioTablet = new Slider({
+        slides: '.popup-portfolio-slider__slide',
+        wrapToClick: '.popup-portfolio',
+        arrowRight: '#popup_portfolio_right svg',
+        arrowLeft: '#popup_portfolio_left svg',
+        classToChange: 'portfolio-hidden',
+        classAction: 'remove',
+        breakpoint: 1024,
+        breakpoint2: 575,
+        counterCurrent: '#popup-portfolio-counter .slider-counter-content__current',
+        counterTotal: '#popup-portfolio-counter .slider-counter-content__total',
+    });
+    sliderInnerPortfolioTablet.init();
+
+    const sliderInnerPortfolioMobile = new Slider({
+        slides: '.popup-portfolio-slider__slide',
+        wrapToClick: '.popup-portfolio',
+        arrowRight: '#popup_portfolio_right svg',
+        arrowLeft: '#popup_portfolio_left svg',
+        classToChange: 'portfolio-hidden',
+        classAction: 'remove',
+        breakpoint: 575,
+        counterCurrent: '#popup-portfolio-counter .slider-counter-content__current',
+        counterTotal: '#popup-portfolio-counter .slider-counter-content__total',
+    });
+    sliderInnerPortfolioMobile.init();
 };
-portfolioMainSlider();
+portfolioSliders();
+
+
 
 const formulaTabletSlider = new Slider({
-  slides: '.formula-slider__slide',
-  wrapToClick: '.formula',
-  arrowRight: '.slider-arrow_right-formula',
-  arrowLeft: '.slider-arrow_left-formula',
-  slidesOnPage: 3,
-  classToChange: 'hidden',
-  classAction: 'remove',
-  breakpoint: 1200,
-  centralClass: 'active'
+    slides: '.formula-slider__slide',
+    wrapToClick: '.formula',
+    arrowRight: '.slider-arrow_right-formula',
+    arrowLeft: '.slider-arrow_left-formula',
+    slidesOnPage: 3,
+    classToChange: 'hidden',
+    classAction: 'remove',
+    breakpoint: 1200,
+    centralClass: 'active'
 });
 formulaTabletSlider.init();

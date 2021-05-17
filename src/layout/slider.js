@@ -23,7 +23,42 @@ class Slider {
     }
 
     init() {
-        console.log(1);
+        console.log(this.wrapToClickSelector);
+        if (this.wrapToClickSelector === '.formula') {
+            const formulaSlider = document.querySelector('.formula-slider');
+            formulaSlider.style.display = 'flex';
+            formulaSlider.style.marginTop = '0';
+            this.arrowLeft.style.top = '66%';
+            this.arrowRight.style.top = '66%';
+            const clone = this.slides[this.slides.length - 1].cloneNode(true);
+            formulaSlider.prepend(clone);
+            this.slides[this.slides.length - 1].remove();
+            this.slides = document.querySelectorAll('.formula-slider__slide');
+        }
+
+
+        if (this.wrapToClickSelector === '.popup-portfolio' &&
+          !this.wrapToClick.style.visibility !== 'visible') {
+            console.log('not visible');
+        } else {
+            document.addEventListener('click', () => {
+                const wrap = document.querySelector('.popup-portfolio');
+                if (wrap.style.visibility === 'visible') {
+                    // const shortPopup = document.querySelector('.popup-dialog-portfolio');
+                    // if (window.innerWIdth < 575) {
+                    //     shortPopup.style.height = '260px';
+                    // } else if (window.innerWIdth > 900) {
+                    //     shortPopup.style.height = '565px'; // было 857
+                    // }
+
+                    console.log('visible');
+                    this.main();
+                }
+
+            });
+        }
+
+
         this.main();
     }
 
@@ -42,17 +77,7 @@ class Slider {
         let btnLeft,
             btnRight;
         let currentSlide = this.currentSlide;
-        if (this.wrapToClickSelector === '.formula') {
-            const formulaSlider = document.querySelector('.formula-slider');
-            formulaSlider.style.display = 'flex';
-            formulaSlider.style.marginTop = '0';
-            this.arrowLeft.style.top = '66%';
-            this.arrowRight.style.top = '66%';
-            const clone = this.slides[this.slides.length - 1].cloneNode(true);
-            formulaSlider.prepend(clone);
-            this.slides[this.slides.length - 1].remove();
-            this.slides = document.querySelectorAll('.formula-slider__slide');
-        }
+
         if (this.centralClass) {
             this.slides[1].classList.add(this.centralClass);
         }
@@ -98,7 +123,7 @@ class Slider {
 
 
                 if (this.arrowRight && this.arrowLeft) {
-                    if (this.slidesOnPage === 1) {
+                    if (this.arrowProblem) {
                         if (btnLeft) {
                             currentSlide--;
                         } else if (btnRight) {
@@ -139,25 +164,25 @@ class Slider {
 
 
                 if (this.arrowRight && this.arrowLeft) {
-                    // if (this.slidesOnPage > 1) {
-                    //     if (currentSlide < this.slidesOnPage - 1) {
-                    //         currentSlide = this.slides.length - (this.slidesOnPage - 1);
-                    //         console.log('currentSlide: ', currentSlide);
-                    //         this.slides.forEach((item, index) => {
-                    //             item.classList.remove(this.classToChange)
-                    //             item.classList.remove(this.centralClass);
-                    //             if (index < currentSlide - 1) {
-                    //                 item.classList.add(this.classToChange);
-                    //             }
-                    //         });
-                    //         this.slides[this.slides.length - 1].classList.add(this.centralClass);
-                        // }
-                    // } else {
+                    if (this.slidesOnPage > 1) {
+                        if (currentSlide < this.slidesOnPage - 1) {
+                            currentSlide = this.slides.length - (this.slidesOnPage - 1);
+                            console.log('currentSlide: ', currentSlide);
+                            this.slides.forEach((item, index) => {
+                                item.classList.remove(this.classToChange)
+                                item.classList.remove(this.centralClass);
+                                if (index < currentSlide - 1) {
+                                    item.classList.add(this.classToChange);
+                                }
+                            });
+                            this.slides[this.slides.length - 1].classList.add(this.centralClass);
+                        }
+                    } else {
                         if (currentSlide < 0) {
                             currentSlide = this.slides.length - 1;
                         }
                     }
-                // }
+                }
 
                 if (this.counterCurrent) {
                     this.counterCurrent.textContent = currentSlide + 1;
@@ -180,7 +205,7 @@ class Slider {
             if (slidesNumber === 1) {
                 elem[index].classList.add(strClass);
             } else if (slidesNumber > 1) {
-              // не трогать это условие, иначе все сломается
+                // не трогать это условие, иначе все сломается
                 if (elem[index - (this.slidesOnPage - 1)]) {
                     elem[index - (this.slidesOnPage - 1)].classList.add(strClass);
                 }
