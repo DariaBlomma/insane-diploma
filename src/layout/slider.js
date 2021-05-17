@@ -92,6 +92,7 @@ class Slider {
 
             if (this.counterTotal) {
                 this.counterTotal.textContent = this.slides.length;
+                this.counterCurrent.textContent = 1;
             }
 
             if (this.slidesOnPage > 1) {

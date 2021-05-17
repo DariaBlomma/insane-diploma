@@ -192,9 +192,7 @@ openPopups('.popup-privacy', '.checkbox__descr span');
 openPopups('.popup-transparency', '.transparency-item__img');
 openPopups('.popup-consultation', '.consult');
 openPopups('.popup-portfolio', '.portfolio-slider__slide-frame', '.popup-portfolio-text');
-
-
-
+openPopups('.popup-transparency', '.transparency-item__img');
 
 const openPopupsHover = () => {
     const toggleBlock = (target, action, elem) => {
@@ -520,7 +518,7 @@ const repairSlider = () => {
 repairSlider();
 
 
-const portfolioSliders = () => {
+const sliders = () => {
     const sliderPortfolioMobile = new Slider({
         slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
         wrapToClick: '.portfolio-slider-wrap',
@@ -601,11 +599,34 @@ const portfolioSliders = () => {
         counterTotal: '#popup-portfolio-counter .slider-counter-content__total',
     });
     sliderInnerPortfolioMobile.init();
+
+    const documentsSlider = new Slider({
+      slides: '.transparency-item',
+      wrapToClick: '.transparency-slider-wrap',
+      arrowRight: '#transparency-arrow_right',
+      arrowLeft: '#transparency-arrow_left',
+      classToChange: 'transparency-hidden',
+      classAction: 'remove',
+      breakpoint: 1090,
+    });
+    documentsSlider.init();
+
+    const documentsInnerSlider = new Slider({
+      slides: '.popup-transparency-slider__slide',
+      wrapToClick: '.popup-transparency',
+      arrowRight: '#transparency_right svg',
+      arrowLeft: '#transparency_left svg',
+      classToChange: 'transparency-hidden',
+      classAction: 'remove',
+      counterCurrent: '.popup-transparency-slider-wrap .slider-counter-content__current',
+      counterTotal: '.popup-transparency-slider-wrap .slider-counter-content__total',
+    });
+    documentsInnerSlider.init();
 };
-portfolioSliders();
+sliders();
 
 
-
+//  не работает в обратную сторону
 const formulaTabletSlider = new Slider({
     slides: '.formula-slider__slide',
     wrapToClick: '.formula',
@@ -618,3 +639,5 @@ const formulaTabletSlider = new Slider({
     centralClass: 'active'
 });
 formulaTabletSlider.init();
+
+

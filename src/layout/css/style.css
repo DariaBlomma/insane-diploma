@@ -1637,9 +1637,9 @@ template, [hidden] {
     z-index: 0;
 }
 
-.repair-hidden, .portfolio-hidden {
+/* .repair-hidden, .portfolio-hidden {
     display: none !important;
-}
+} */
 @media (max-width: 1024px) {
     .repair-types {
         padding: 92px 0 100px 0;
@@ -9072,4 +9072,8 @@ strong {
 
 .slider-dots {
     display: none;
+}
+
+.repair-hidden, .portfolio-hidden, .transparency-hidden {
+  display: none !important;
 }
