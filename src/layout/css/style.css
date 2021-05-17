@@ -1090,7 +1090,7 @@ template, [hidden] {
 }
 
 .formula-slider__slide.active {
-  display: flex;
+  /* display: flex; */
   margin-top: 40px;
 }
 @media (max-width: 1024px) {
@@ -1637,8 +1637,8 @@ template, [hidden] {
     z-index: 0;
 }
 
-.repair-hidden {
-    display: none;
+.repair-hidden, .portfolio-hidden {
+    display: none !important;
 }
 @media (max-width: 1024px) {
     .repair-types {

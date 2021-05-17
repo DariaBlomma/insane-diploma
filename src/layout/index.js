@@ -121,13 +121,53 @@ const openPopups = (popupSelector, elemSelector) => {
             }
         })
     }
+
+    const portfolioWrap = document.querySelector('.portfolio-slider-wrap');
+    const hovers = portfolioWrap.querySelectorAll('.item-hover');
+    const getYMatch = (elem, event) => {
+        const top = elem.getBoundingClientRect().top;
+        return event.y === top || (event.y > top && event.y < top + elem.clientHeight);
+    };
+    const getXMatch = (elem, event) => {
+        const left = elem.getBoundingClientRect().left;
+        return event.x === left || (event.x > left && event.x < left + elem.clientWidth);
+    };
+
+    const arrowLeft = document.querySelector('.slider-arrow-tablet-mobile_left svg');
+    const arrowRight = document.querySelector('.slider-arrow-tablet-mobile_right svg');
+
+    if (elemSelector === '.portfolio-slider__slide-frame' && window.innerWidth < 900) {
+        hovers.forEach(item => {
+            item.style.visibility = 'hidden';
+            item.style.opacity = 0;
+        });
+    }
     const popup = document.querySelector(popupSelector);
     const closeBtn = popup.querySelector('.close');
     document.addEventListener('click', event => {
         const target = event.target;
-        if (target.closest(elemSelector)) {
+        let condition;
+        if (elemSelector === '.portfolio-slider__slide-frame' && window.innerWidth < 900) {
+            const btnLeft = getYMatch(arrowLeft, event) && getXMatch(arrowLeft, event);
+            const btnRight = getYMatch(arrowRight, event) && getXMatch(arrowRight, event);
+            condition = target.closest(elemSelector) && !btnLeft && !btnRight;
+        } else {
+            condition = target.closest(elemSelector);
+        }
+        if (condition) {
+            const hovers = document.querySelectorAll('.portfolio-slider-wrap .item-hover');
+            hovers.forEach(item => {
+                item.style.visibility = 'visible';
+                item.style.opacity = 1;
+            });
             popup.style.visibility = 'visible';
         } else if (target === closeBtn) {
+            hovers.forEach(item => {
+                item.style.visibility = 'hidden';
+                item.style.opacity = 0;
+            });
+            popup.style.visibility = 'hidden';
+        } else {
             popup.style.visibility = 'hidden';
         }
     });
@@ -137,6 +177,8 @@ openPopups('.popup-privacy', '.checkbox__descr span');
 openPopups('.popup-transparency', '.transparency-item__img');
 openPopups('.popup-consultation', '.consult');
 openPopups('.popup-portfolio', '.portfolio-slider__slide-frame');
+
+
 
 
 const openPopupsHover = () => {
@@ -373,24 +415,19 @@ const formulaSlider = () => {
     };
 };
 
-formulaSlider();
+// formulaSlider();
 
 const repairSlider = () => {
     const repairTypes = document.getElementById('repair-types');
-    const arrowLeft = document.getElementById('repair-types-arrow_left');
-    const arrowRight = document.getElementById('repair-types-arrow_right');
-    const navItems = document.querySelectorAll('.repair-types-nav__item');
     const navListRepair = document.querySelector('.nav-list-repair');
     const counterCurrent = document.querySelector('.slider-counter-content__current');
     const counterTotal = document.querySelector('.slider-counter-content__total');
     const repairTypesSlides = [...document.querySelector('.repair-types-slider').children];
-    // эти эл-ты будут переключаться всегда
     const slides = document.querySelectorAll('.repair-types-slider__slide');
-    // внутри картинка для определенного типа. Скрывать весь блок
 
     counterTotal.textContent = repairTypesSlides.length;
     let currentSlide = 0;
-    let currentSlideBtn = 0;
+
     const prevSlide = (elem, index, strClass) => {
         elem[index].classList.add(strClass);
     };
@@ -464,8 +501,62 @@ const repairSlider = () => {
         counterCurrent.textContent = currentSlide + 1;
         nextSlide(repairTypesSlides, currentSlide, 'repair-hidden');
     });
-
-
-
 };
 repairSlider();
+
+
+const portfolioMainSlider = () => {
+  const sliderPortfolioMobile = new Slider({
+    slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
+    wrapToClick: '.portfolio-slider-wrap',
+    arrowRight: '.slider-arrow-tablet-mobile_right svg',
+    arrowLeft: '.slider-arrow-tablet-mobile_left svg',
+    classToChange: 'portfolio-hidden',
+    classAction: 'remove',
+    breakpoint: 575,
+    counterCurrent: '.portfolio .slider-counter-content__current',
+    counterTotal: '.portfolio .slider-counter-content__total',
+    arrowProblem: true
+});
+sliderPortfolioMobile.init();
+
+
+const sliderPortfolioTablet = new Slider({
+  slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
+  wrapToClick: '.portfolio-slider-wrap',
+  arrowRight: '#portfolio-arrow_right',
+  slidesOnPage: 2,
+  classToChange: 'portfolio-hidden',
+  classAction: 'remove',
+  breakpoint: 1024,
+  breakpoint2: 575,
+  infinity: false
+});
+sliderPortfolioTablet.init();
+
+const sliderPortfolioDesctop = new Slider({
+  slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
+  wrapToClick: '.portfolio-slider-wrap',
+  arrowRight: '#portfolio-arrow_right',
+  slidesOnPage: 3,
+  classToChange: 'portfolio-hidden',
+  classAction: 'remove',
+  breakpoint2: 1024,
+  infinity: false
+});
+sliderPortfolioDesctop.init();
+};
+portfolioMainSlider();
+
+const formulaTabletSlider = new Slider({
+  slides: '.formula-slider__slide',
+  wrapToClick: '.formula',
+  arrowRight: '.slider-arrow_right-formula',
+  arrowLeft: '.slider-arrow_left-formula',
+  slidesOnPage: 3,
+  classToChange: 'hidden',
+  classAction: 'remove',
+  breakpoint: 1200,
+  centralClass: 'active'
+});
+formulaTabletSlider.init();
