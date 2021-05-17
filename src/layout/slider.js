@@ -23,7 +23,7 @@ class Slider {
     }
 
     init() {
-        console.log(this.wrapToClickSelector);
+        //console.log(this.wrapToClickSelector);
         if (this.wrapToClickSelector === '.formula') {
             const formulaSlider = document.querySelector('.formula-slider');
             formulaSlider.style.display = 'flex';
@@ -39,7 +39,6 @@ class Slider {
 
         if (this.wrapToClickSelector === '.popup-portfolio' &&
           !this.wrapToClick.style.visibility !== 'visible') {
-            console.log('not visible');
         } else {
             document.addEventListener('click', () => {
                 const wrap = document.querySelector('.popup-portfolio');
@@ -50,14 +49,10 @@ class Slider {
                     // } else if (window.innerWIdth > 900) {
                     //     shortPopup.style.height = '565px'; // было 857
                     // }
-
-                    console.log('visible');
                     this.main();
                 }
-
             });
         }
-
 
         this.main();
     }
