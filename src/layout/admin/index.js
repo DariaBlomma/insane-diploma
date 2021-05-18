@@ -1,4 +1,4 @@
-'use strict' 
+'use strict'
 const mainFunction = () => {
 
     if (String(window.location.href).includes('table.html')) {
@@ -22,23 +22,32 @@ const mainFunction = () => {
                         item.remove();
                     }
                 })
-                fetch('../../crm-backend/db.json')
+
+                fetch('http://localhost:3000/api/items')
                     .then(response => {
-                        if (response.status !== 200) {
+                        // if (response.status !== 200) {
+                        //     throw new Error('network status is not 200');
+                        // }
+                        // return (response.json());
+                        if (response.status === 200) {
+                            return (response.json());
+                        } else {
                             throw new Error('network status is not 200');
                         }
-                        return (response.json());
+
+
                     })
                     .then(data => {
-                        // console.log(data);
-                        types = new Set();
-                        data.forEach((item, index) => {
-                            types.add(item.type);
-                        });
-                        types.forEach(item => {
-                            renderOptions(item);
-                        })
-                        console.log(types);
+                        console.log(data);
+                        // types = new Set();
+                        // data.forEach((item, index) => {
+                        //     types.add(item.type);
+                        // });
+                        // types.forEach(item => {
+                        //     renderOptions(item);
+                        // })
+                        // console.log(types);
+
                         // namesArr = new Map();
                         // unitsArr = new Map();
                         // pricesArr = new Map();
@@ -132,7 +141,7 @@ const mainFunction = () => {
                     passwordInput.value = '';
                     if (login !== myLogin) {
                         loginInput.nextElementSibling.style.display = 'inline-block';
-                    } 
+                    }
 
                     if (password !== myPassword) {
                         passwordInput.nextElementSibling.style.display = 'inline-block';

@@ -54,17 +54,46 @@ class Slider {
             });
         }
 
+        // if (this.wrapToClickSelector === '.popup-portfolio-slider') {
+        //     this.arrowLeft.style.top = '300px';
+        //     this.arrowRight.style.top = '300px';
+        //     document.querySelector('.popup-portfolio-slider-wrap .slider-counter').style.top = '550px';
+        // }
+
         this.main();
     }
 
     getYMatch(elem, event) {
         const top = elem.getBoundingClientRect().top;
         return event.y === top || (event.y > top && event.y < top + elem.clientHeight);
+
     }
 
     getXMatch (elem, event) {
-        const left = elem.getBoundingClientRect().left;
-        return event.x === left || (event.x > left && event.x < left + elem.clientWidth);
+      // let left;
+      // let width;
+      //   if (this.arrowLeftSelector === '#popup_portfolio_left') {
+
+      //     left = 20;
+      //     width = 40;
+      //   } else if (this.arrowRightSelector === '#popup_portfolio_right') {
+      //     left = 673;
+      //     width = 40;
+
+
+      //     // left = this.wrapToClick.getBoundingClientRect().left;
+
+      //     // console.log('left: ', left);
+      //     console.log('event.x : ', event.x );
+      //   } else {
+      //     left = elem.getBoundingClientRect().left;
+      //     width = elem.clientWidth;
+      //   }
+
+        left = elem.getBoundingClientRect().left;
+        width = elem.clientWidth;
+        return event.x === left || (event.x > left && event.x < left + width);
+
     }
 
     main () {
@@ -101,6 +130,8 @@ class Slider {
             }
             this.wrapToClick.addEventListener('click', event => {
                 const target = event.target;
+                console.log('target: ', target);
+                // console.log('event.x : ', event.x );
                 if (this.arrowProblem) {
                     btnLeft = this.getYMatch(this.arrowLeft, event) && this.getXMatch(this.arrowLeft, event);
                     btnRight = this.getYMatch(this.arrowRight, event) && this.getXMatch(this.arrowRight, event);
@@ -227,6 +258,7 @@ class Slider {
                 elem[index - 1].classList.add(this.centralClass);
             }
             elem[index].classList.remove(strClass);
+            console.log('elem[index]: ', elem[index]);
 
         } else {
             elem[index].classList.add(strClass);

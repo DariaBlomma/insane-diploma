@@ -495,6 +495,9 @@ template, [hidden] {
     -webkit-transition: 0.5s;
     transition: 0.5s;
 }
+.header-contacts__arrow.opened {
+  transform: rotate(180deg);
+}
 
 .header-contacts__arrow img {
     margin-top: 12px;

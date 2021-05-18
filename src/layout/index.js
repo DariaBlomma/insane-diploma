@@ -3,13 +3,16 @@
 
 const openPhoneNumber = () => {
     const accordNumber = document.querySelector('.header-contacts__phone-number-accord a');
+    const arrow = document.querySelector('.header-contacts__arrow');
     document.addEventListener('click', event => {
         const target = event.target;
         if (target.closest('.header-contacts__arrow')) {
             accordNumber.classList.toggle('opened');
+            arrow.classList.toggle('opened');
         } else if (accordNumber.classList.contains('opened')) {
             // закрываем при клике вне стрелки
             accordNumber.classList.remove('opened');
+            arrow.classList.remove('opened');
         }
     });
 };
@@ -480,6 +483,8 @@ const repairSlider = () => {
                 item.classList.remove('active');
             });
             target.classList.add('active');
+            currentSlide = 0;
+            counterCurrent.textContent = 1;
             const type = target.dataset.repair;
             slides.forEach(item => {
                 item.classList.remove('repair-hidden');
@@ -561,17 +566,19 @@ const sliders = () => {
 
     //  нет стрелок и счетчика в верстке
 
-    // const sliderInnerPortfolioDesctop = new Slider({
-    //   slides: '.popup-portfolio-slider__slide',
-    //   wrapToClick: '.popup-portfolio-slider',
-    //   arrowRight: '#popup_portfolio_right',
-    //      arrowLeft: '#popup_portfolio_left',
-    //   classToChange: 'portfolio-hidden',
-    //   classAction: 'remove',
-    //   breakpoint2: 1024,
-    //   infinity: false
-    // });
-    // sliderInnerPortfolioDesctop.init();
+    const sliderInnerPortfolioDesctop = new Slider({
+      slides: '.popup-portfolio-slider__slide',
+      wrapToClick: '.popup-dialog-portfolio',
+      arrowRight: '#popup_portfolio_right',
+      arrowLeft: '#popup_portfolio_left',
+      classToChange: 'portfolio-hidden',
+      classAction: 'remove',
+      breakpoint2: 1024,
+      counterCurrent: '.popup-portfolio-slider-wrap .slider-counter-content__current',
+      counterTotal: '.popup-portfolio-slider-wrap .slider-counter-content__total',
+      infinity: false
+    });
+    sliderInnerPortfolioDesctop.init();
 
     const sliderInnerPortfolioTablet = new Slider({
         slides: '.popup-portfolio-slider__slide',
@@ -637,7 +644,7 @@ sliders();
 
 
 //  не работает в обратную сторону
-const formulaTabletSlider = new Slider3({
+const formulaTabletSlider = new Slider({
     slides: '.formula-slider__slide',
     wrapToClick: '.formula',
     arrowRight: '.slider-arrow_right-formula',
@@ -676,7 +683,7 @@ const showRepairTypesData = () => {
   const repairTypesValues = popup.querySelectorAll('.repair-types-value.units');// sup внутри
   const prices = popup.querySelectorAll('.repair-types-value.cost') // добавлять текст самой
   const date = popup.querySelector('.popup-repair-types-content__head-date');
-  
+
   let namesArr,
       unitsArr,
       pricesArr;
@@ -717,10 +724,10 @@ const showRepairTypesData = () => {
       text = title.textContent;
       if (target.closest('.popup-repair-types-nav__item')) {
         text = getActualText(target);
-      } 
+      }
     }
-    
-    
+
+
 
     fetch('../crm-backend/db.json')
       .then(response => {
