@@ -6,11 +6,39 @@ const mainFunction = () => {
             window.location.href = 'index.html';
         } else {
             const tableFunction = () => {
-                let types,
-                    count;
-                const tableTypes = document.querySelectorAll('.table-type');
+                const table = document.getElementById('table');
+
+                const renderTableRows = (id, type, name, units, cost) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                  <tr class="table__row">
+                  <td class="table__id table__cell">${id}</td>
+                  <td class="table-type table__cell">${type}</td>
+                  <td class="table-name table__cell">
+                  ${name}
+                  </td>
+                  <td class="table-units table__cell">
+                  ${units}
+                  </td>
+                  <td class="table-cost table__cell">
+                  ${cost} руб.
+                  </td>
+                  <td>
+                    <div class="table__actions table__cell">
+                      <button class="button action-change"><span class="svg_ui"><svg class="action-icon_change"><use xlink:href="./img/sprite.svg#change"></use></svg></span><span>Изменить</span>
+                      </button>
+                      <button class="button action-remove"><span class="svg_ui"><svg class="action-icon_remove"><use xlink:href="./img/sprite.svg#remove"></use></svg></span><span>Удалить</span>
+                      </button>
+                    </div>
+                  </td>
+                `;
+                    row.className = 'table__row';
+                    table.append(row);
+                };
+                let types;
 
                 const select = document.getElementById('typeItem');
+
                 const renderOptions = text => {
                     const newOption = document.createElement('option');
                     newOption.setAttribute('value', text);
@@ -18,6 +46,60 @@ const mainFunction = () => {
                     select.append(newOption);
                 };
 
+                const openPopups = (popupSelector, elemSelector) => {
+                    const popup = document.querySelector(popupSelector);
+                    const closeBtn = popup.querySelector('.icon__close');
+                    document.addEventListener('click', event => {
+                        const target = event.target;
+                        if (target.closest(elemSelector)) {
+                            popup.style.display = 'block';
+                        } else if (target === closeBtn) {
+                            popup.style.display = 'none';
+                        }
+                        if (target.matches('.cancel-button span')) {
+                            popup.querySelectorAll('input').forEach(item => item.value = '');
+                        }
+                    });
+                };
+
+                const generateId = () => {
+                    const idStr = [];
+                    for (let i = 0; i < 11; ++i) {
+                        const random = Math.floor(Math.random() * 10);
+                        idStr.push(random);
+                    }
+                    return idStr.join('');
+                };
+
+                const validation = (elem, type) => {
+                    document.addEventListener('input', event => {
+                        const target = event.target;
+                        let reg;
+                        if (type === 'text') {
+                            reg = /\d/g;
+                        }
+                        if (type === 'number') {
+                            reg = /\D/g;
+                        }
+
+                        if (target === elem) {
+                            elem.value = elem.value.replace(reg, '');
+                        }
+                    });
+                };
+                // const checkId = () => {
+                //     allId.forEach(item => item === generateId());
+                // };
+
+                const tableTypes = document.querySelectorAll('.table-type');
+                const form = document.querySelector('form');
+                const inputType = form.querySelector('.input__type');
+                const inputName = form.querySelector('.input__name');
+                const inputUnits = form.querySelector('.input__units');
+                const inputCost = form.querySelector('.input__cost');
+
+
+                let allId;
                 const options = [...select.options];
                 options.forEach((item, index) => {
                     if (index > 0) {
@@ -36,70 +118,173 @@ const mainFunction = () => {
                                 console.log(select.value);
                             }
                         }
-                    }); 
+                    });
                 });
 
-                fetch('../../crm-backend/db.json')
-                    .then(response => {
-                        if (response.status === 200) {
-                            return (response.json());
-                        } else {
-                            throw new Error('network status is not 200');
-                        }
+                openPopups('#modal', '.btn-addItem');
+                validation(inputType, 'text');
+                validation(inputName, 'text');
+                validation(inputUnits, 'text');
+                validation(inputCost, 'number');
 
-
-                    })
-                    .then(data => {
-                        types = new Set();
-                        data.forEach((item, index) => {
-                            types.add(item.type);
-                        });
-                        types.forEach(item => {
-                            renderOptions(item);
+                const getData = ()  => {
+                    fetch('http://localhost:3000/api/items/')
+                        .then(response => {
+                            if (response.status === 200) {
+                                return (response.json());
+                            } else {
+                                throw new Error('network status is not 200');
+                            }
                         })
-                        
+                        .then(data => {
+                            allId = new Set();
+                            types = new Set();
+                            data.forEach(item => {
+                                allId.add(item.id);
+                                types.add(item.type);
+                                renderTableRows(item.id, item.type, item.name, item.units, item.cost);
+                            });
+                            types.forEach(item => {
+                                renderOptions(item);
+                            });
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        })
+                };
+                getData();
 
-                        // namesArr = new Map();
-                        // unitsArr = new Map();
-                        // pricesArr = new Map();
-                        // data.forEach((item, index) => {
-                        //     if (item.type === text) {
-                        //         countNames++;
-                        //         namesArr.set(countNames, item.name);
-                        //         unitsArr.set(countNames, item.units);
-                        //         pricesArr.set(countNames, item.cost);
-                        //     }
-                        // })
-                        // countNames = 0;
-                    })
+                form.addEventListener('submit', event => {
+                    event.preventDefault();
+                    const type = inputType.value.trim();
+                    const name = inputName.value.trim();
+                    const units = inputUnits.value.trim();
+                    const price = inputCost.value.trim();
+                    const inputs = form.querySelectorAll('input');
+                    console.log(type, name, units, price);
 
-                    // .then(() => {
-                    //     repairTypesNames.forEach((elem, index) => {
-                    //         if (index + 1 < namesArr.size) {
-                    //             elem.textContent = '';
-                    //             elem.parentNode.style.display = '';
-                    //         } else {
-                    //             elem.parentNode.style.display = 'none';
-                    //         }
-                    //     })
-                    //     namesArr.forEach((elem, index) => {
-                    //         repairTypesNames[index - 1].textContent = elem;
-                    //     });
-                    //     unitsArr.forEach((elem, index) => {
-                    //         const unitLetters = String(elem.match(/\D+/g));
-                    //         let unitNumbers = String(elem.match(/\d+/g));
-                    //         if (unitNumbers === 'null') {
-                    //             unitNumbers = '';
-                    //         }
-                    //         repairTypesValues[index - 1].innerHTML = `${unitLetters}<sup>${unitNumbers}</sup>`;
-                    //     });
-                    //     pricesArr.forEach((elem, index) => {
-                    //         prices[index - 1].textContent = `${elem} руб.`;
-                    //     });
-                    // })
-                    .catch(error => {
-                        console.error(error);
-                    })
+                    // do fetch http://localhost:3000/api/items/
+                    //
+
+                    // const sendForm = () => {
+                    //     const doAjax = formId => {
+                    //         const form = document.getElementById(formId);
+                    //         const checkbox = form.querySelector('.checkbox__input');
+                    //         const checkboxLabel = form.querySelector('.checkbox__label');
+                    //         const errorPopup = document.querySelector('.popup-error');
+                    //         const successPopup = document.querySelector('.popup-thank');
+                    //         const loader = document.createElement('div');
+                    //         form.append(loader);
+                    //         const inputs = form.querySelectorAll('input');
+                    //         document.addEventListener('click', event => {
+                    //             const target = event.target;
+                    //             const closeThank = successPopup.querySelector('.close');
+                    //             const closeError = errorPopup.querySelector('.close');
+                    //             if (target === closeThank || target === closeError) {
+                    //                 successPopup.style.visibility = 'hidden';
+                    //                 errorPopup.style.visibility = 'hidden';
+                    //             }
+                    //         });
+                    //         const removeMessage = () => {
+                    //             checkboxLabel.style.borderColor = '#322823';
+                    //             successPopup.style.visibility = 'hidden';
+                    //             errorPopup.style.visibility = 'hidden';
+                    //         };
+                    //         const showSuccess = () => {
+                    //             loader.className = '';
+                    //             successPopup.style.visibility = 'visible';
+                    //             inputs.forEach(item => {
+                    //                 item.value = '';
+                    //             });
+                    //             checkbox.checked = false;
+                    //             setTimeout(removeMessage, 5000);
+                    //         };
+                    //         const showError = error => {
+                    //             loader.className = '';
+                    //             errorPopup.style.visibility = 'visible';
+                    //             console.error(error);
+                    //             setTimeout(removeMessage, 5000);
+                    //         };
+                    //         form.addEventListener('submit', event => {
+                    //             event.preventDefault();
+                    //             if (checkbox.checked) {
+                    //                 checkboxLabel.style.borderColor = '#322823';
+                    //                 loader.className = 'loader';
+                    //                 const formData = new FormData(form);
+                    //                 const body = {};
+                    //                 formData.forEach((val, key) => {
+                    //                     body[key] = val;
+                    //                 });
+
+                    //                 const postData = body =>  fetch('./server.php', {
+                    //                     method: 'POST',
+                    //                     headers: {
+                    //                         'Content-Type': 'application/json'
+                    //                     },
+                    //                     body: JSON.stringify(body)
+                    //                 });
+                    //                 postData(body)
+                    //                     .then(response => {
+                    //                         if (response.status !== 200) {
+                    //                             throw new Error('network status is not 200');
+                    //                         }
+                    //                         showSuccess();
+                    //                     })
+                    //                     .catch(showError);
+                    //             } else {
+                    //                 checkboxLabel.style.borderColor = 'red';
+                    //                 setTimeout(() => {
+                    //                     checkboxLabel.style.borderColor = '#322823';
+                    //                 }, 3000);
+                    //             }
+                    //         });
+                    //     };
+
+                    //     doAjax('feedback1');
+                    //     doAjax('feedback2');
+                    //     doAjax('feedback3');
+                    //     doAjax('feedback4');
+                    //     doAjax('feedback5');
+                    //     doAjax('feedback6');
+                    // };
+
+                    const loader = document.createElement('div');
+                    form.append(loader);
+                    loader.className = 'loader';
+                    const newId = generateId();
+                    const formData = new FormData(form);
+                    const body = {};
+                    formData.forEach((val, key) => {
+                        body[key] = val;
+                        body['id'] = newId;
+                    });
+
+                    const postData = body => fetch('http://localhost:3000/api/items/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(body)
+                    });
+                    postData(body)
+                        .then(response => {
+                            if (response.ok) {
+                                loader.className = '';
+                                inputs.forEach(item => {
+                                    item.value = '';
+                                });
+                            } else {
+                                throw new Error('network status is not 200');
+                            }
+                        })
+                        .then(() => {
+                            renderTableRows(newId, type, name, units, price);
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            loader.className = '';
+                        });
+                });
             };
             tableFunction();
         }
