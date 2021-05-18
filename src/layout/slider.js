@@ -62,7 +62,13 @@ class Slider {
         //     this.arrowRight.style.top = '300px';
         //     document.querySelector('.popup-portfolio-slider-wrap .slider-counter').style.top = '550px';
         // }
-
+        if (this.breakpoint || this.breakpoint2) {
+            window.addEventListener('resize', () => {
+                this.main();
+            });
+        } else {
+            this.main();
+        }
 
         this.main();
     }
@@ -101,6 +107,7 @@ class Slider {
     }
 
     main () {
+
         let condition;
         let btnLeft,
             btnRight;
@@ -120,8 +127,8 @@ class Slider {
             }
 
             if (this.alt && this.id) {
-                  this.slides.forEach(item => {
-                  item.classList.add('repair-hidden');
+                this.slides.forEach(item => {
+                    item.classList.add('repair-hidden');
                     const alt = item.querySelector('img').alt;
                     if (alt === this.alt) {
                         item.classList.remove('repair-hidden');
