@@ -23,7 +23,7 @@ const mainFunction = () => {
                     }
                 })
 
-                fetch('http://localhost:3000/api/items')
+                fetch('http://localhost:3000/api/items/1614040106349')
                     .then(response => {
                         // if (response.status !== 200) {
                         //     throw new Error('network status is not 200');

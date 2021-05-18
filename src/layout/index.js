@@ -433,7 +433,21 @@ const formulaSlider = () => {
 
 // formulaSlider();
 
+// const type = target.dataset.repair
+const repairSliderPart = new Slider({
+  slides: '.repair-types-slider__slide',
+  wrapToClick: '#repair-types',
+  arrowRight: '#repair-types-arrow_right',
+  arrowLeft: '#repair-types-arrow_left',
+  classToChange: 'repair-hidden',
+  classAction: 'remove',
+  counterCurrent: '.slider-counter-content__current',
+  counterTotal: '.slider-counter-content__total',
+  alt: 'cosmetic'
+});
+repairSliderPart.init();
 const repairSlider = () => {
+
     const repairTypes = document.getElementById('repair-types');
     const navListRepair = document.querySelector('.nav-list-repair');
     const counterCurrent = document.querySelector('.slider-counter-content__current');
@@ -441,23 +455,30 @@ const repairSlider = () => {
     const repairTypesSlides = [...document.querySelector('.repair-types-slider').children];
     const slides = document.querySelectorAll('.repair-types-slider__slide');
 
-    counterTotal.textContent = repairTypesSlides.length;
-    let currentSlide = 0;
+    // counterTotal.textContent = repairTypesSlides.length;
+    // let currentSlide = 0;
 
-    const prevSlide = (elem, index, strClass) => {
-        elem[index].classList.add(strClass);
-    };
+    // const prevSlide = (elem, index, strClass) => {
+    //     elem[index].classList.add(strClass);
+    //     console.log('elem[index]: ', elem[index]);
+    // };
 
-    const nextSlide = (elem, index, strClass) => {
-        elem[index].classList.remove(strClass);
-    };
+    // const nextSlide = (elem, index, strClass) => {
+    //     elem[index].classList.remove(strClass);
+    // };
 
-    repairTypesSlides.forEach(elem => {
-        elem.classList.add('repair-hidden');
-    });
+    // repairTypesSlides.forEach(elem => {
+    //     elem.classList.add('repair-hidden');
+    // });
 
-    repairTypesSlides[0].classList.remove('repair-hidden');
+    // repairTypesSlides[0].classList.remove('repair-hidden');
 
+    // let part = [];
+    // let part;
+    // let cosm = [];
+    // let cap = [];
+    // let auro = [];
+    // let ind = [];
     repairTypes.addEventListener('click', event => {
         event.preventDefault();
         const target = event.target;
@@ -478,46 +499,84 @@ const repairSlider = () => {
 
         const closestBtn = target.closest('.repair-types-nav__item');
         if (closestBtn) {
+          // part = new Map();
+          // let count = 0;
             const navItems = document.querySelectorAll('.repair-types-nav__item');
             navItems.forEach(item => {
                 item.classList.remove('active');
             });
             target.classList.add('active');
-            currentSlide = 0;
-            counterCurrent.textContent = 1;
-            const type = target.dataset.repair;
-            slides.forEach(item => {
-                item.classList.remove('repair-hidden');
-                const alt = item.querySelector('img').alt;
-                if (alt !== type) {
-                    item.classList.add('repair-hidden');
-                }
+            // currentSlide = 0;
+            // counterCurrent.textContent = 1;
+            // repairTypesSlides.forEach(elem => {
+            //     elem.classList.add('repair-hidden');
+            // });
+        
+            // repairTypesSlides[0].classList.remove('repair-hidden');
+
+            const type = target.dataset.repair
+            const repairSliderPart = new Slider({
+              slides: '.repair-types-slider__slide',
+              wrapToClick: '#repair-types',
+              arrowRight: '#repair-types-arrow_right',
+              arrowLeft: '#repair-types-arrow_left',
+              classToChange: 'repair-hidden',
+              classAction: 'remove',
+              counterCurrent: '.slider-counter-content__current',
+              counterTotal:'.slider-counter-content__total',
+              alt: `${type}`
             });
+            repairSliderPart.init();
+
+
+            // slides.forEach(item => {
+            //     item.classList.remove('repair-hidden');
+            //     const alt = item.querySelector('img').alt;
+            //     // if (alt !== type) {
+            //     //     item.classList.add('repair-hidden');
+            //     // }
+            //     if (alt === type) {
+            //       count++;
+            //       part.set(count, item);
+                  
+            //   }
+            //   console.log('part: ', part);
+            // });
         };
 
-        if (!target.closest('#repair-types-arrow_left, #repair-types-arrow_right')) {
-            return;
-        }
+      //   if (!target.closest('#repair-types-arrow_left, #repair-types-arrow_right')) {
+      //       return;
+      //   }
 
 
-        prevSlide(repairTypesSlides, currentSlide, 'repair-hidden');
+      //   // prevSlide(repairTypesSlides, currentSlide, 'repair-hidden');
+      //   prevSlide(part, currentSlide, 'repair-hidden');
 
-        if (target.closest('#repair-types-arrow_right')) {
-            currentSlide++;
-        } else if (target.closest('#repair-types-arrow_left')) {
-            currentSlide--;
-        }
+      //   if (target.closest('#repair-types-arrow_right')) {
+      //       currentSlide++;
+      //   } else if (target.closest('#repair-types-arrow_left')) {
+      //       currentSlide--;
+      //   }
 
-        if (currentSlide >= repairTypesSlides.length) {
-            currentSlide = 0;
-        }
+      //   // if (currentSlide >= repairTypesSlides.length || closestBtn) {
+      //   //     currentSlide = 0;
+      //   // }
+        
+      //   if (currentSlide >= part.size || closestBtn) {
+      //     currentSlide = 0;
+      // }
 
-        if (currentSlide < 0) {
-            currentSlide = repairTypesSlides.length - 1;
-        }
+      //   // if (currentSlide < 0 || closestBtn) {
+      //   //     currentSlide = repairTypesSlides.length - 1;
+      //   // }
 
-        counterCurrent.textContent = currentSlide + 1;
-        nextSlide(repairTypesSlides, currentSlide, 'repair-hidden');
+      //   if (currentSlide < 0 || closestBtn) {
+      //     currentSlide = part.size - 1;
+      // }
+
+      //   counterCurrent.textContent = currentSlide + 1;
+      //   // nextSlide(repairTypesSlides, currentSlide, 'repair-hidden');
+      //   nextSlide(part, currentSlide, 'repair-hidden');
     });
 };
 repairSlider();

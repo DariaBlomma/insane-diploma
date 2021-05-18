@@ -1,7 +1,8 @@
 class Slider {
     constructor({ slides, wrapToClick, arrowRight, arrowLeft, currentSlide = 0,
         slidesOnPage = 1, classToChange, classAction, breakpoint = 5000,
-        breakpoint2 = 0, counterCurrent, counterTotal, centralClass, arrowProblem = false, infinity = true }) {
+        breakpoint2 = 0, counterCurrent, counterTotal, centralClass, arrowProblem = false,
+        infinity = true, alt }) {
         this.slides = document.querySelectorAll(slides);
         this.wrapToClick = document.querySelector(wrapToClick);
         this.wrapToClickSelector = wrapToClick;
@@ -20,6 +21,7 @@ class Slider {
         this.centralClass = centralClass;
         this.arrowProblem = arrowProblem;
         this.infinity = infinity;
+        this.alt = alt;
     }
 
     init() {
@@ -60,6 +62,7 @@ class Slider {
         //     document.querySelector('.popup-portfolio-slider-wrap .slider-counter').style.top = '550px';
         // }
 
+
         this.main();
     }
 
@@ -70,25 +73,25 @@ class Slider {
     }
 
     getXMatch (elem, event) {
-      // let left;
-      // let width;
-      //   if (this.arrowLeftSelector === '#popup_portfolio_left') {
+        // let left;
+        // let width;
+        //   if (this.arrowLeftSelector === '#popup_portfolio_left') {
 
-      //     left = 20;
-      //     width = 40;
-      //   } else if (this.arrowRightSelector === '#popup_portfolio_right') {
-      //     left = 673;
-      //     width = 40;
+        //     left = 20;
+        //     width = 40;
+        //   } else if (this.arrowRightSelector === '#popup_portfolio_right') {
+        //     left = 673;
+        //     width = 40;
 
 
-      //     // left = this.wrapToClick.getBoundingClientRect().left;
+        //     // left = this.wrapToClick.getBoundingClientRect().left;
 
-      //     // console.log('left: ', left);
-      //     console.log('event.x : ', event.x );
-      //   } else {
-      //     left = elem.getBoundingClientRect().left;
-      //     width = elem.clientWidth;
-      //   }
+        //     // console.log('left: ', left);
+        //     console.log('event.x : ', event.x );
+        //   } else {
+        //     left = elem.getBoundingClientRect().left;
+        //     width = elem.clientWidth;
+        //   }
 
         left = elem.getBoundingClientRect().left;
         width = elem.clientWidth;
@@ -102,6 +105,7 @@ class Slider {
             btnRight;
         let currentSlide = this.currentSlide;
 
+        
         if (this.centralClass) {
             this.slides[1].classList.add(this.centralClass);
         }
@@ -114,8 +118,23 @@ class Slider {
                 });
             }
 
+            if (this.alt) {
+              
+                // this.slides = [];
+              
+                this.slides.forEach(item => {
+                    item.classList.add('repair-hidden');
+                    const alt = item.querySelector('img').alt;
+                    if (alt === this.alt) {
+                        item.classList.remove('repair-hidden');
+                        item.classList.add('my-alt-slide');
+                        this.slides = document.querySelectorAll('.my-alt-slide');
+                        this.counterTotal.textContent = this.slides.length;
+                    }
+                });
+            }
             if (this.counterTotal) {
-                this.counterTotal.textContent = this.slides.length;
+                this.counterTotal.textContent = this.slides.length;                
                 this.counterCurrent.textContent = 1;
             }
 
@@ -130,8 +149,12 @@ class Slider {
             }
             this.wrapToClick.addEventListener('click', event => {
                 const target = event.target;
-                console.log('target: ', target);
+                // console.log('target: ', target);
                 // console.log('event.x : ', event.x );
+
+                if (this.alt) {
+                  this.slides = document.querySelectorAll('.my-alt-slide');
+                }
                 if (this.arrowProblem) {
                     btnLeft = this.getYMatch(this.arrowLeft, event) && this.getXMatch(this.arrowLeft, event);
                     btnRight = this.getYMatch(this.arrowRight, event) && this.getXMatch(this.arrowRight, event);
@@ -145,7 +168,7 @@ class Slider {
                 if (condition) {
                     return;
                 }
-
+                console.log('this.slides: ', this.slides);
                 this.prevSlide(this.slides, currentSlide, this.classToChange, this.slidesOnPage, this.classAction);
 
 
@@ -258,7 +281,6 @@ class Slider {
                 elem[index - 1].classList.add(this.centralClass);
             }
             elem[index].classList.remove(strClass);
-            console.log('elem[index]: ', elem[index]);
 
         } else {
             elem[index].classList.add(strClass);
