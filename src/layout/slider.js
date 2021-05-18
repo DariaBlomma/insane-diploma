@@ -2,7 +2,7 @@ class Slider {
     constructor({ slides, wrapToClick, arrowRight, arrowLeft, currentSlide = 0,
         slidesOnPage = 1, classToChange, classAction, breakpoint = 5000,
         breakpoint2 = 0, counterCurrent, counterTotal, centralClass, arrowProblem = false,
-        infinity = true, alt }) {
+        infinity = true, alt, id }) {
         this.slides = document.querySelectorAll(slides);
         this.wrapToClick = document.querySelector(wrapToClick);
         this.wrapToClickSelector = wrapToClick;
@@ -22,6 +22,7 @@ class Slider {
         this.arrowProblem = arrowProblem;
         this.infinity = infinity;
         this.alt = alt;
+        this.id = id;
     }
 
     init() {
@@ -118,18 +119,17 @@ class Slider {
                 });
             }
 
-            if (this.alt) {
-              
-                // this.slides = [];
-              
-                this.slides.forEach(item => {
-                    item.classList.add('repair-hidden');
+            if (this.alt && this.id) {
+                  this.slides.forEach(item => {
+                  item.classList.add('repair-hidden');
                     const alt = item.querySelector('img').alt;
                     if (alt === this.alt) {
                         item.classList.remove('repair-hidden');
-                        item.classList.add('my-alt-slide');
-                        this.slides = document.querySelectorAll('.my-alt-slide');
+                        item.classList.add(`${this.id}`);
+                        this.slides = document.querySelectorAll(`.${this.id}`);
                         this.counterTotal.textContent = this.slides.length;
+                    } else {
+                        item.classList.add('repair-hidden');
                     }
                 });
             }
@@ -149,12 +149,6 @@ class Slider {
             }
             this.wrapToClick.addEventListener('click', event => {
                 const target = event.target;
-                // console.log('target: ', target);
-                // console.log('event.x : ', event.x );
-
-                if (this.alt) {
-                  this.slides = document.querySelectorAll('.my-alt-slide');
-                }
                 if (this.arrowProblem) {
                     btnLeft = this.getYMatch(this.arrowLeft, event) && this.getXMatch(this.arrowLeft, event);
                     btnRight = this.getYMatch(this.arrowRight, event) && this.getXMatch(this.arrowRight, event);
@@ -168,7 +162,7 @@ class Slider {
                 if (condition) {
                     return;
                 }
-                console.log('this.slides: ', this.slides);
+
                 this.prevSlide(this.slides, currentSlide, this.classToChange, this.slidesOnPage, this.classAction);
 
 

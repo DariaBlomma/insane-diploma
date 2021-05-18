@@ -431,54 +431,25 @@ const formulaSlider = () => {
     };
 };
 
-// formulaSlider();
 
-// const type = target.dataset.repair
-const repairSliderPart = new Slider({
-  slides: '.repair-types-slider__slide',
-  wrapToClick: '#repair-types',
-  arrowRight: '#repair-types-arrow_right',
-  arrowLeft: '#repair-types-arrow_left',
-  classToChange: 'repair-hidden',
-  classAction: 'remove',
-  counterCurrent: '.slider-counter-content__current',
-  counterTotal: '.slider-counter-content__total',
-  alt: 'cosmetic'
-});
-repairSliderPart.init();
-const repairSlider = () => {
+const sliders = () => {
+    const repairSliderPart = new Slider({
+        slides: '.repair-types-slider__slide',
+        wrapToClick: '#repair-types',
+        arrowRight: '#repair-types-arrow_right',
+        arrowLeft: '#repair-types-arrow_left',
+        classToChange: 'repair-hidden',
+        classAction: 'remove',
+        counterCurrent: '.slider-counter-content__current',
+        counterTotal: '.slider-counter-content__total',
+        alt: 'electro',
+        id:  'electro-slide'
+    });
+    repairSliderPart.init();
 
     const repairTypes = document.getElementById('repair-types');
     const navListRepair = document.querySelector('.nav-list-repair');
-    const counterCurrent = document.querySelector('.slider-counter-content__current');
-    const counterTotal = document.querySelector('.slider-counter-content__total');
-    const repairTypesSlides = [...document.querySelector('.repair-types-slider').children];
-    const slides = document.querySelectorAll('.repair-types-slider__slide');
 
-    // counterTotal.textContent = repairTypesSlides.length;
-    // let currentSlide = 0;
-
-    // const prevSlide = (elem, index, strClass) => {
-    //     elem[index].classList.add(strClass);
-    //     console.log('elem[index]: ', elem[index]);
-    // };
-
-    // const nextSlide = (elem, index, strClass) => {
-    //     elem[index].classList.remove(strClass);
-    // };
-
-    // repairTypesSlides.forEach(elem => {
-    //     elem.classList.add('repair-hidden');
-    // });
-
-    // repairTypesSlides[0].classList.remove('repair-hidden');
-
-    // let part = [];
-    // let part;
-    // let cosm = [];
-    // let cap = [];
-    // let auro = [];
-    // let ind = [];
     repairTypes.addEventListener('click', event => {
         event.preventDefault();
         const target = event.target;
@@ -499,90 +470,28 @@ const repairSlider = () => {
 
         const closestBtn = target.closest('.repair-types-nav__item');
         if (closestBtn) {
-          // part = new Map();
-          // let count = 0;
             const navItems = document.querySelectorAll('.repair-types-nav__item');
             navItems.forEach(item => {
                 item.classList.remove('active');
             });
             target.classList.add('active');
-            // currentSlide = 0;
-            // counterCurrent.textContent = 1;
-            // repairTypesSlides.forEach(elem => {
-            //     elem.classList.add('repair-hidden');
-            // });
-        
-            // repairTypesSlides[0].classList.remove('repair-hidden');
 
-            const type = target.dataset.repair
-            const repairSliderPart = new Slider({
-              slides: '.repair-types-slider__slide',
-              wrapToClick: '#repair-types',
-              arrowRight: '#repair-types-arrow_right',
-              arrowLeft: '#repair-types-arrow_left',
-              classToChange: 'repair-hidden',
-              classAction: 'remove',
-              counterCurrent: '.slider-counter-content__current',
-              counterTotal:'.slider-counter-content__total',
-              alt: `${type}`
+            const type = target.dataset.repair;
+            const repairSliderType = new Slider({
+                slides: '.repair-types-slider__slide',
+                wrapToClick: '#repair-types',
+                arrowRight: '#repair-types-arrow_right',
+                arrowLeft: '#repair-types-arrow_left',
+                classToChange: 'repair-hidden',
+                classAction: 'remove',
+                counterCurrent: '.slider-counter-content__current',
+                counterTotal:'.slider-counter-content__total',
+                alt: `${type}`,
+                id:  `${type}-slide`
             });
-            repairSliderPart.init();
-
-
-            // slides.forEach(item => {
-            //     item.classList.remove('repair-hidden');
-            //     const alt = item.querySelector('img').alt;
-            //     // if (alt !== type) {
-            //     //     item.classList.add('repair-hidden');
-            //     // }
-            //     if (alt === type) {
-            //       count++;
-            //       part.set(count, item);
-                  
-            //   }
-            //   console.log('part: ', part);
-            // });
+            repairSliderType.init();
         };
-
-      //   if (!target.closest('#repair-types-arrow_left, #repair-types-arrow_right')) {
-      //       return;
-      //   }
-
-
-      //   // prevSlide(repairTypesSlides, currentSlide, 'repair-hidden');
-      //   prevSlide(part, currentSlide, 'repair-hidden');
-
-      //   if (target.closest('#repair-types-arrow_right')) {
-      //       currentSlide++;
-      //   } else if (target.closest('#repair-types-arrow_left')) {
-      //       currentSlide--;
-      //   }
-
-      //   // if (currentSlide >= repairTypesSlides.length || closestBtn) {
-      //   //     currentSlide = 0;
-      //   // }
-        
-      //   if (currentSlide >= part.size || closestBtn) {
-      //     currentSlide = 0;
-      // }
-
-      //   // if (currentSlide < 0 || closestBtn) {
-      //   //     currentSlide = repairTypesSlides.length - 1;
-      //   // }
-
-      //   if (currentSlide < 0 || closestBtn) {
-      //     currentSlide = part.size - 1;
-      // }
-
-      //   counterCurrent.textContent = currentSlide + 1;
-      //   // nextSlide(repairTypesSlides, currentSlide, 'repair-hidden');
-      //   nextSlide(part, currentSlide, 'repair-hidden');
     });
-};
-repairSlider();
-
-
-const sliders = () => {
     const sliderPortfolioMobile = new Slider({
         slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
         wrapToClick: '.portfolio-slider-wrap',
@@ -626,16 +535,16 @@ const sliders = () => {
     //  нет стрелок и счетчика в верстке
 
     const sliderInnerPortfolioDesctop = new Slider({
-      slides: '.popup-portfolio-slider__slide',
-      wrapToClick: '.popup-dialog-portfolio',
-      arrowRight: '#popup_portfolio_right',
-      arrowLeft: '#popup_portfolio_left',
-      classToChange: 'portfolio-hidden',
-      classAction: 'remove',
-      breakpoint2: 1024,
-      counterCurrent: '.popup-portfolio-slider-wrap .slider-counter-content__current',
-      counterTotal: '.popup-portfolio-slider-wrap .slider-counter-content__total',
-      infinity: false
+        slides: '.popup-portfolio-slider__slide',
+        wrapToClick: '.popup-dialog-portfolio',
+        arrowRight: '#popup_portfolio_right',
+        arrowLeft: '#popup_portfolio_left',
+        classToChange: 'portfolio-hidden',
+        classAction: 'remove',
+        breakpoint2: 1024,
+        counterCurrent: '.popup-portfolio-slider-wrap .slider-counter-content__current',
+        counterTotal: '.popup-portfolio-slider-wrap .slider-counter-content__total',
+        infinity: false
     });
     sliderInnerPortfolioDesctop.init();
 
@@ -667,35 +576,35 @@ const sliders = () => {
     sliderInnerPortfolioMobile.init();
 
     const documentsSlider = new Slider({
-      slides: '.transparency-item',
-      wrapToClick: '.transparency-slider-wrap',
-      arrowRight: '#transparency-arrow_right',
-      arrowLeft: '#transparency-arrow_left',
-      classToChange: 'transparency-hidden',
-      classAction: 'remove',
-      breakpoint: 1090,
+        slides: '.transparency-item',
+        wrapToClick: '.transparency-slider-wrap',
+        arrowRight: '#transparency-arrow_right',
+        arrowLeft: '#transparency-arrow_left',
+        classToChange: 'transparency-hidden',
+        classAction: 'remove',
+        breakpoint: 1090,
     });
     documentsSlider.init();
 
     const documentsInnerSlider = new Slider({
-      slides: '.popup-transparency-slider__slide',
-      wrapToClick: '.popup-transparency',
-      arrowRight: '#transparency_right svg',
-      arrowLeft: '#transparency_left svg',
-      classToChange: 'transparency-hidden',
-      classAction: 'remove',
-      counterCurrent: '.popup-transparency-slider-wrap .slider-counter-content__current',
-      counterTotal: '.popup-transparency-slider-wrap .slider-counter-content__total',
+        slides: '.popup-transparency-slider__slide',
+        wrapToClick: '.popup-transparency',
+        arrowRight: '#transparency_right svg',
+        arrowLeft: '#transparency_left svg',
+        classToChange: 'transparency-hidden',
+        classAction: 'remove',
+        counterCurrent: '.popup-transparency-slider-wrap .slider-counter-content__current',
+        counterTotal: '.popup-transparency-slider-wrap .slider-counter-content__total',
     });
     documentsInnerSlider.init();
 
     const reviewsSlider = new Slider({
-      slides: '.reviews-slider__slide',
-      wrapToClick: '#reviews',
-      arrowRight: '#reviews-arrow_right',
-      arrowLeft: '#reviews-arrow_left',
-      classToChange: 'transparency-hidden',
-      classAction: 'remove',
+        slides: '.reviews-slider__slide',
+        wrapToClick: '#reviews',
+        arrowRight: '#reviews-arrow_right',
+        arrowLeft: '#reviews-arrow_left',
+        classToChange: 'transparency-hidden',
+        classAction: 'remove',
     });
     reviewsSlider.init();
 };
@@ -717,17 +626,17 @@ const formulaTabletSlider = new Slider({
 formulaTabletSlider.init();
 
 const accordion = () => {
-  // msg-active открывает нужный контент
+    // msg-active открывает нужный контент
     const accordion = document.querySelector('.accordion');
     const titleBlocks = accordion.querySelectorAll('.title_block');
     titleBlocks[0].classList.add('msg-active');
     accordion.addEventListener('click', event => {
         const target = event.target;
         titleBlocks.forEach(item => {
-          item.classList.remove('msg-active');
-          if (target === item) {
-            item.classList.add('msg-active');
-          }
+            item.classList.remove('msg-active');
+            if (target === item) {
+                item.classList.add('msg-active');
+            }
         })
     })
 };
@@ -735,108 +644,108 @@ const accordion = () => {
 accordion();
 
 const showRepairTypesData = () => {
-  const popup = document.querySelector('.popup-repair-types');
-  const btns = popup.querySelectorAll('.popup-repair-types-nav__item');
-  const title = popup.querySelector('.popup-repair-types-content__head-title');
-  const repairTypesNames = popup.querySelectorAll('.repair-types-name');
-  const repairTypesValues = popup.querySelectorAll('.repair-types-value.units');// sup внутри
-  const prices = popup.querySelectorAll('.repair-types-value.cost') // добавлять текст самой
-  const date = popup.querySelector('.popup-repair-types-content__head-date');
+    const popup = document.querySelector('.popup-repair-types');
+    const btns = popup.querySelectorAll('.popup-repair-types-nav__item');
+    const title = popup.querySelector('.popup-repair-types-content__head-title');
+    const repairTypesNames = popup.querySelectorAll('.repair-types-name');
+    const repairTypesValues = popup.querySelectorAll('.repair-types-value.units');// sup внутри
+    const prices = popup.querySelectorAll('.repair-types-value.cost') // добавлять текст самой
+    const date = popup.querySelector('.popup-repair-types-content__head-date');
 
-  let namesArr,
-      unitsArr,
-      pricesArr;
+    let namesArr,
+        unitsArr,
+        pricesArr;
 
-  let countNames = 0;
-  const getActualText = (target) => {
-      const btns = popup.querySelectorAll('.popup-repair-types-nav__item');
-      btns.forEach(item => {
-      item.classList.remove('active');
-        if (target === item) {
-          item.classList.add('active');
-          title.textContent = item.textContent;
-        }
-      })
-
-      return title.textContent;
-  };
-
-  document.addEventListener('click', event => {
-    let text;
-    const target = event.target;
-    if (document.querySelector('#nav-arrow-popup-repair_left')) {
-      const navList = document.querySelector('.nav-list-popup-repair');
-
-      if (target.closest('#nav-arrow-popup-repair_right')) {
-          const btn = navList.children[0];
-          const clone = btn.cloneNode(true);
-          navList.append(clone);
-          btn.remove();
-      } else if (target.closest('#nav-arrow-popup-repair_left')) {
-          const btn = navList.children[navList.children.length - 1];
-          const clone = btn.cloneNode(true);
-          navList.prepend(clone);
-          btn.remove();
-      }
-  }
-    if (popup.style.visibility === 'visible') {
-      text = title.textContent;
-      if (target.closest('.popup-repair-types-nav__item')) {
-        text = getActualText(target);
-      }
-    }
-
-
-
-    fetch('../crm-backend/db.json')
-      .then(response => {
-        if (response.status !== 200) {
-          throw new Error('network status is not 200');
-        }
-        return (response.json());
-      })
-      .then(data => {
-        namesArr = new Map();
-        unitsArr = new Map();
-        pricesArr = new Map();
-          data.forEach((item, index) => {
-            if (item.type === text) {
-              countNames++;
-              namesArr.set(countNames, item.name);
-              unitsArr.set(countNames, item.units);
-              pricesArr.set(countNames, item.cost);
+    let countNames = 0;
+    const getActualText = (target) => {
+        const btns = popup.querySelectorAll('.popup-repair-types-nav__item');
+        btns.forEach(item => {
+            item.classList.remove('active');
+            if (target === item) {
+                item.classList.add('active');
+                title.textContent = item.textContent;
             }
-          })
-          countNames = 0;
-      })
-      .then(() => {
-        repairTypesNames.forEach((elem, index) => {
-          if (index + 1 < namesArr.size) {
-          elem.textContent = '';
-          elem.parentNode.style.display = '';
-          } else {
-            elem.parentNode.style.display = 'none';
-          }
         })
-        namesArr.forEach((elem, index) => {
-          repairTypesNames[index - 1].textContent = elem;
-        });
-        unitsArr.forEach((elem, index) => {
-          const unitLetters = String(elem.match(/\D+/g));
-          let unitNumbers = String(elem.match(/\d+/g));
-          if (unitNumbers === 'null') {
-            unitNumbers = '';
-          }
-          repairTypesValues[index - 1].innerHTML = `${unitLetters}<sup>${unitNumbers}</sup>`;
-        });
-        pricesArr.forEach((elem, index) => {
-          prices[index - 1].textContent = `${elem} руб.`;
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      })
 
-  });
+        return title.textContent;
+    };
+
+    document.addEventListener('click', event => {
+        let text;
+        const target = event.target;
+        if (document.querySelector('#nav-arrow-popup-repair_left')) {
+            const navList = document.querySelector('.nav-list-popup-repair');
+
+            if (target.closest('#nav-arrow-popup-repair_right')) {
+                const btn = navList.children[0];
+                const clone = btn.cloneNode(true);
+                navList.append(clone);
+                btn.remove();
+            } else if (target.closest('#nav-arrow-popup-repair_left')) {
+                const btn = navList.children[navList.children.length - 1];
+                const clone = btn.cloneNode(true);
+                navList.prepend(clone);
+                btn.remove();
+            }
+        }
+        if (popup.style.visibility === 'visible') {
+            text = title.textContent;
+            if (target.closest('.popup-repair-types-nav__item')) {
+                text = getActualText(target);
+            }
+        }
+
+
+
+        fetch('../crm-backend/db.json')
+            .then(response => {
+                if (response.status !== 200) {
+                    throw new Error('network status is not 200');
+                }
+                return (response.json());
+            })
+            .then(data => {
+                namesArr = new Map();
+                unitsArr = new Map();
+                pricesArr = new Map();
+                data.forEach((item, index) => {
+                    if (item.type === text) {
+                        countNames++;
+                        namesArr.set(countNames, item.name);
+                        unitsArr.set(countNames, item.units);
+                        pricesArr.set(countNames, item.cost);
+                    }
+                })
+                countNames = 0;
+            })
+            .then(() => {
+                repairTypesNames.forEach((elem, index) => {
+                    if (index + 1 < namesArr.size) {
+                        elem.textContent = '';
+                        elem.parentNode.style.display = '';
+                    } else {
+                        elem.parentNode.style.display = 'none';
+                    }
+                })
+                namesArr.forEach((elem, index) => {
+                    repairTypesNames[index - 1].textContent = elem;
+                });
+                unitsArr.forEach((elem, index) => {
+                    const unitLetters = String(elem.match(/\D+/g));
+                    let unitNumbers = String(elem.match(/\d+/g));
+                    if (unitNumbers === 'null') {
+                        unitNumbers = '';
+                    }
+                    repairTypesValues[index - 1].innerHTML = `${unitLetters}<sup>${unitNumbers}</sup>`;
+                });
+                pricesArr.forEach((elem, index) => {
+                    prices[index - 1].textContent = `${elem} руб.`;
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            })
+
+    });
 };
 showRepairTypesData();
