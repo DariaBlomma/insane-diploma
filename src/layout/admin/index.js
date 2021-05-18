@@ -8,6 +8,8 @@ const mainFunction = () => {
             const tableFunction = () => {
                 let types,
                     count;
+                const tableTypes = document.querySelectorAll('.table-type');
+
                 const select = document.getElementById('typeItem');
                 const renderOptions = text => {
                     const newOption = document.createElement('option');
@@ -21,14 +23,24 @@ const mainFunction = () => {
                     if (index > 0) {
                         item.remove();
                     }
-                })
+                });
+                select.addEventListener('change', () => {
+                    tableTypes.forEach(item => {
+                        item.parentNode.style.display = '';
+                        if (select.value !== item.textContent.trim()) {
+                            if (select.value === 'Все услуги') {
+                                item.parentNode.style.display = '';
+                            } else {
+                                item.parentNode.style.display = 'none';
+                                console.log('item.parentNode: ', item.parentNode);
+                                console.log(select.value);
+                            }
+                        }
+                    }); 
+                });
 
-                fetch('http://localhost:3000/api/items/1614040106349')
+                fetch('../../crm-backend/db.json')
                     .then(response => {
-                        // if (response.status !== 200) {
-                        //     throw new Error('network status is not 200');
-                        // }
-                        // return (response.json());
                         if (response.status === 200) {
                             return (response.json());
                         } else {
@@ -38,15 +50,14 @@ const mainFunction = () => {
 
                     })
                     .then(data => {
-                        console.log(data);
-                        // types = new Set();
-                        // data.forEach((item, index) => {
-                        //     types.add(item.type);
-                        // });
-                        // types.forEach(item => {
-                        //     renderOptions(item);
-                        // })
-                        // console.log(types);
+                        types = new Set();
+                        data.forEach((item, index) => {
+                            types.add(item.type);
+                        });
+                        types.forEach(item => {
+                            renderOptions(item);
+                        })
+                        
 
                         // namesArr = new Map();
                         // unitsArr = new Map();
