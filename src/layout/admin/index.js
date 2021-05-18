@@ -9,7 +9,6 @@ const mainFunction = () => {
                 const form = document.querySelector('form');
                 const title = document.querySelector('.modal__header');
                 const table = document.getElementById('table');
-
                 const inputType = form.querySelector('.input__type');
                 const inputName = form.querySelector('.input__name');
                 const inputUnits = form.querySelector('.input__units');
@@ -173,8 +172,6 @@ const mainFunction = () => {
 
 
                 const changeItem = target => {
-                    console.log('will change')
-
                     title.textContent = 'Редактировать услугу';
                     const row = target.closest('.table__row');
                     const id = row.querySelector('.table__id').textContent.trim();
@@ -225,6 +222,27 @@ const mainFunction = () => {
                 };
 
 
+                const deleteItem = target => {
+                    const row = target.closest('.table__row');
+                    const id = row.querySelector('.table__id').textContent.trim();
+                    const deleteData = () => fetch(`http://localhost:3000/api/items/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+                    deleteData()
+                        .then(response => {
+                            if (response.ok) {
+                                row.remove();
+                            } else {
+                                throw new Error('network status is not 200');
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                };
                 document.addEventListener('click', event => {
                     const target = event.target;
                     if (target.closest('.action-change')) {
@@ -232,6 +250,9 @@ const mainFunction = () => {
                     }
                     if (target.closest('.btn-addItem')) {
                         sendData();
+                    }
+                    if (target.closest('.action-remove')) {
+                        deleteItem(target);
                     }
                 });
 
