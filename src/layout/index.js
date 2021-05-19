@@ -460,18 +460,37 @@ const sliders = () => {
 
     //  нет стрелок и счетчика в верстке
 
-    const sliderInnerPortfolioDesctop = new Slider({
-        slides: '.popup-portfolio-slider__slide',
-        wrapToClick: '.popup-dialog-portfolio',
-        arrowRight: '.popup-arrow.popup-arrow_right',
-        arrowLeft: '.popup-arrow.popup-arrow_right',
-        classToChange: 'portfolio-inner-hidden',
-        classAction: 'remove',
-        breakpoint2: 1024,
-        counterCurrent: ' .slider-counter-content__current',
-        counterTotal: ' .slider-counter-content__total',
-    });
+    // const sliderInnerPortfolioDesctop = new Slider({
+    //     slides: '.popup-portfolio-slider__slide',
+    //     wrapToClick: '.popup-dialog-portfolio',
+    //     arrowRight: '.popup-arrow.popup-arrow_right',
+    //     arrowLeft: '.popup-arrow.popup-arrow_left',
+    //     classToChange: 'portfolio-inner-hidden',
+    //     classAction: 'remove',
+    //     breakpoint2: 1024,
+    //     counterCurrent: '.slider-counter-content__current',
+    //     counterTotal: '.slider-counter-content__total',
+    //     name: 'inner portfolio descktop slider'
+    // });
+    // sliderInnerPortfolioDesctop.init();
+    const sliderInnerPortfolioDesctop = new SliderPopupDescPortfolio({
+      slides: '.popup-portfolio-slider__slide',
+      wrapToClick: '.popup-dialog-portfolio',
+      arrowRight: '.popup-arrow.popup-arrow_right',
+      arrowLeft: '.popup-arrow.popup-arrow_left',
+      classToChange: 'portfolio-inner-hidden',
+      classAction: 'remove',
+      breakpoint2: 1024,
+      counterCurrent: '.slider-counter-content__current',
+      counterTotal: '.slider-counter-content__total',
+  });
     sliderInnerPortfolioDesctop.init();
+    document.getElementById('popup_portfolio_left').addEventListener('click', event => {
+      const target = event.target;
+      console.log(target);
+
+
+    })
 
     const sliderInnerPortfolioTablet = new Slider({
         slides: '.popup-portfolio-slider__slide',

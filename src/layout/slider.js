@@ -2,14 +2,13 @@ class Slider {
     constructor({ slides, wrapToClick, arrowRight, arrowLeft, currentSlide = 0,
         slidesOnPage = 1, classToChange, classAction, breakpoint = 5000,
         breakpoint2 = 0, counterCurrent, counterTotal, centralClass, arrowProblem = false,
-        infinity = true, alt, id }) {
+        infinity = true, alt, id, name }) {
         this.slides = document.querySelectorAll(slides);
         this.wrapToClick = document.querySelector(wrapToClick);
         this.wrapToClickSelector = wrapToClick;
         this.arrowRight = document.querySelector(arrowRight);
         this.arrowRightSelector = arrowRight;
         this.arrowLeft = document.querySelector(arrowLeft);
-        console.log('this.arrowLeft: ', this.arrowLeft);
         this.arrowLeftSelector = arrowLeft;
         this.currentSlide = currentSlide;
         this.slidesOnPage = slidesOnPage;
@@ -24,6 +23,7 @@ class Slider {
         this.infinity = infinity;
         this.alt = alt;
         this.id = id;
+        this.name = name;
     }
 
     init() {
@@ -167,10 +167,14 @@ class Slider {
                     condition = !target.closest(this.arrowRightSelector) &&  !target.closest(this.arrowLeftSelector);
                 }
 
-                console.log(this.arrowLeft);
-                console.log(this.arrowRight);
-                console.log(target.closest(this.arrowRightSelector));
-                console.log(target.closest(this.arrowLeftSelector));
+                if (this.name === 'inner portfolio descktop slider') {
+                  console.log('target', target);
+                  console.log(this.arrowLeft);
+                  console.log(this.arrowRight);
+                  console.log(target.closest(this.arrowRightSelector));
+                  console.log(target.closest(this.arrowLeftSelector));
+                }
+
                 if (condition) {
                     return;
                 }
