@@ -18,7 +18,7 @@ const openPopupsHover = () => {
 
             if (top < popup.clientHeight) {
                 popup.style.bottom = `-${popup.clientHeight + 10}px`;
-                popup.classList.toggle('down');
+                popup.classList.add('down');
             } else {
                 popup.style.bottom = '90px';
                 popup.classList.remove('down');
