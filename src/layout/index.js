@@ -342,97 +342,20 @@ const sendForm = () => {
 
 sendForm();
 
-const formulaSlider = () => {
-    if (window.innerWidth < 1200) {
-        const slides = document.querySelectorAll('.formula-slider__slide'),
-            arrowLeft = document.querySelector('.slider-arrow_left-formula'),
-            arrowRight = document.querySelector('.slider-arrow_right-formula'),
-            formula = document.querySelector('.formula'),
-            formulaSlider = document.querySelector('.formula-slider');
-        formulaSlider.style.display = 'flex';
-        formulaSlider.style.marginTop = '0';
-        arrowLeft.style.top = '66%';
-        arrowRight.style.top = '66%';
-
-        let currentSlide = 0;
-
-        const initialState = () => {
-            slides[slides.length - 1].style.order = -1;
-            slides[slides.length - 1].classList.remove('hidden');
-            slides[0].classList.add('active');
-            slides[0].style.order = 0;
-        };
-
-        const prevSlide = (elem, index, strClass) => {
-            elem[index].classList.remove(strClass);
-        };
-
-        const nextSlide = (elem, index, strClass) => {
-            slides[slides.length - 1].style.order = slides.length - 1;
-
-            slides[slides.length - 1].classList.add('hidden');
-            elem[index].classList.add(strClass);
-
-            if ( elem[index + 1]) {
-                elem[index + 1].classList.remove('hidden');
-            }
-
-            if (elem[index - 2]) {
-                elem[index - 2].classList.add('hidden');
-            }
-        };
-
-        slides.forEach((item, index) => {
-            if (index > 1) {
-                item.classList.add('hidden');
-            }
-        });
-
-        if (currentSlide === 0) {
-            initialState();
-        }
-
-        formula.addEventListener('click', event => {
-            event.preventDefault();
-            const target = event.target;
-
-            if (!target.closest('.slider-arrow_left-formula, .slider-arrow_right-formula')) {
-                return;
-            }
-
-            prevSlide(slides, currentSlide, 'active');
-
-            if (target.closest('.slider-arrow_right-formula')) {
-                currentSlide++;
-            } else if (target.closest('.slider-arrow_left-formula')) {
-                currentSlide--;
-            }
-
-            if (currentSlide === slides.length - 1) {
-                slides[0].style.order = slides.length;
-                slides[0].classList.remove('hidden');
-                slides[slides.length - 3].classList.add('hidden')
-            }
-
-            console.log('currentSlide: ', currentSlide);
-            if (currentSlide >= slides.length) {
-                //initialState();
-                currentSlide = 0;
-            }
-
-            if (currentSlide < 0) {
-                currentSlide = slides.length - 1;
-                slides[0].style.order = slides.length - 1;
-                slides[slides.length - 1].style.order = 0;
-                slides[slides.length - 1].classList.add('hidden');
-            }
-            nextSlide(slides, currentSlide, 'active');
-        });
-    };
-};
-
-
 const sliders = () => {
+    const formulaTabletSlider = new SliderFormula({
+        slides: '.formula-slider__slide',
+        wrapToClick: '.formula',
+        arrowRight: '.slider-arrow_right-formula',
+        arrowLeft: '.slider-arrow_left-formula',
+        slidesOnPage: 3,
+        classToChange: 'hidden',
+        classAction: 'remove',
+        breakpoint: 1200,
+        centralClass: 'active'
+    });
+    formulaTabletSlider.init();
+
     const repairSliderPart = new Slider({
         slides: '.repair-types-slider__slide',
         wrapToClick: '#repair-types',
@@ -520,7 +443,7 @@ const sliders = () => {
     });
     sliderPortfolioTablet.init();
 
-    const sliderPortfolioDesctop = new Slider({
+    const sliderPortfolioDesctop = new Slider3({
         slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
         wrapToClick: '.portfolio-slider-wrap',
         arrowRight: '#portfolio-arrow_right',
@@ -612,18 +535,7 @@ sliders();
 
 
 //  не работает в обратную сторону
-const formulaTabletSlider = new Slider3({
-    slides: '.formula-slider__slide',
-    wrapToClick: '.formula',
-    arrowRight: '.slider-arrow_right-formula',
-    arrowLeft: '.slider-arrow_left-formula',
-    slidesOnPage: 3,
-    classToChange: 'hidden',
-    classAction: 'remove',
-    breakpoint: 1200,
-    centralClass: 'active'
-});
-formulaTabletSlider.init();
+
 
 const accordion = () => {
     // msg-active открывает нужный контент

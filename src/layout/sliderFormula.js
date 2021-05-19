@@ -1,4 +1,4 @@
-class Slider3 {
+class SliderFormula {
     constructor({ slides, wrapToClick, arrowRight, arrowLeft, currentSlide = 0,
         slidesOnPage = 1, classToChange, classAction, breakpoint = 5000,
         breakpoint2 = 0, counterCurrent, counterTotal, centralClass, arrowProblem = false, infinity = true }) {
@@ -20,8 +20,7 @@ class Slider3 {
         this.centralClass = centralClass;
         this.arrowProblem = arrowProblem;
         this.infinity = infinity;
-        this.click = 0;
-        this.originalItemOrder = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide');
+        this.originalItemOrder = document.querySelectorAll('.formula-item.formula-slider__slide')
     }
 
     init() {
@@ -40,7 +39,7 @@ class Slider3 {
 
 
         if (this.wrapToClickSelector === '.popup-portfolio' &&
-        !this.wrapToClick.style.visibility !== 'visible') {
+          !this.wrapToClick.style.visibility !== 'visible') {
         } else {
             document.addEventListener('click', () => {
                 const wrap = document.querySelector('.popup-portfolio');
@@ -70,21 +69,17 @@ class Slider3 {
     }
 
     main () {
-
-        let items = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide')
-        document.getElementById('portfolio-arrow_left').addEventListener('click',
-            event => {
-              this.click += 1;
-              this.displaySlide((items.length + this.currentSlide - 1) % items.length)
-            })
-        document.getElementById('portfolio-arrow_right').addEventListener('click',
+        let items = document.querySelectorAll('.formula-item.formula-slider__slide')
+        document.getElementById('formula-arrow_left').addEventListener('click',
+            event => this.displaySlide((items.length + this.currentSlide - 1) % items.length))
+        document.getElementById('formula-arrow_right').addEventListener('click',
             event => this.displaySlide((this.currentSlide + 1) % items.length))
         this.displaySlide(this.currentSlide)
     }
 
     displaySlide(slide) {
-        let container = document.querySelector('.portfolio-slider.mobile-hide');
-        let items = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide');
+        let container = document.querySelector('.formula-slider')
+        let items = document.querySelectorAll('.formula-item.formula-slider__slide')
         const showSlidesOnPage = 3
 
         let availableSlides = []
@@ -98,24 +93,22 @@ class Slider3 {
             toDisplay.push(availableSlides[i])
 
         items.forEach(item => {
-            item.classList.add(this.classToChange)
+            item.classList.add('hidden')
             item.remove()
         })
-        toDisplay.forEach(value => {
+        toDisplay.forEach((value, index) => {
             let item = this.originalItemOrder[value]
-            item.classList.remove(this.classToChange);
-            container.append(item);
+            item.classList.remove('hidden')
+            item.classList.remove('active')
+            container.appendChild(item)
+            if (index ===  1) {
+              item.classList.add('active');
+            }
         })
         for (let i = 0; i < this.originalItemOrder.length; ++i) {
-            if (slide === 3 && i === 4) {
-                document.getElementById('portfolio-arrow_right').style.display = 'none';
-            } else if (this.click > 0 && slide === 0 && i === 4) {
-                document.getElementById('portfolio-arrow_left').style.display = 'none';
-            } else {
-                if (i >= slide && i < slide + showSlidesOnPage)
-                    continue
-                container.append(this.originalItemOrder[i]);
-            }
+            if (i >= slide && i < slide + showSlidesOnPage)
+                continue
+            container.appendChild(this.originalItemOrder[i])
         }
 
         this.currentSlide = slide
