@@ -1,7 +1,8 @@
 class Slider3 {
     constructor({ slides, wrapToClick, arrowRight, arrowLeft, currentSlide = 0,
         slidesOnPage = 1, classToChange, classAction, breakpoint = 5000,
-        breakpoint2 = 0, counterCurrent, counterTotal, centralClass, arrowProblem = false, infinity = true }) {
+        breakpoint2 = 0, counterCurrent, counterTotal, centralClass, arrowProblem = false,
+        infinity = true, name }) {
         this.slides = document.querySelectorAll(slides);
         this.wrapToClick = document.querySelector(wrapToClick);
         this.wrapToClickSelector = wrapToClick;
@@ -22,56 +23,15 @@ class Slider3 {
         this.infinity = infinity;
         this.click = 0;
         this.originalItemOrder = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide');
+        this.name = name;
     }
 
     init() {
-        //console.log(this.wrapToClickSelector);
-        if (this.wrapToClickSelector === '.formula') {
-            const formulaSlider = document.querySelector('.formula-slider');
-            formulaSlider.style.display = 'flex';
-            formulaSlider.style.marginTop = '0';
-            this.arrowLeft.style.top = '66%';
-            this.arrowRight.style.top = '66%';
-            const clone = this.slides[this.slides.length - 1].cloneNode(true);
-            formulaSlider.prepend(clone);
-            this.slides[this.slides.length - 1].remove();
-            this.slides = document.querySelectorAll('.formula-slider__slide');
-        }
-
-
-        if (this.wrapToClickSelector === '.popup-portfolio' &&
-        !this.wrapToClick.style.visibility !== 'visible') {
-        } else {
-            document.addEventListener('click', () => {
-                const wrap = document.querySelector('.popup-portfolio');
-                if (wrap.style.visibility === 'visible') {
-                    // const shortPopup = document.querySelector('.popup-dialog-portfolio');
-                    // if (window.innerWIdth < 575) {
-                    //     shortPopup.style.height = '260px';
-                    // } else if (window.innerWIdth > 900) {
-                    //     shortPopup.style.height = '565px'; // было 857
-                    // }
-                    this.main();
-                }
-            });
-        }
-
         this.main();
     }
 
-    getYMatch(elem, event) {
-        const top = elem.getBoundingClientRect().top;
-        return event.y === top || (event.y > top && event.y < top + elem.clientHeight);
-    }
-
-    getXMatch (elem, event) {
-        const left = elem.getBoundingClientRect().left;
-        return event.x === left || (event.x > left && event.x < left + elem.clientWidth);
-    }
-
     main () {
-
-        let items = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide')
+      let items = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide')
         document.getElementById('portfolio-arrow_left').addEventListener('click',
             event => {
               this.click += 1;
@@ -85,7 +45,7 @@ class Slider3 {
     displaySlide(slide) {
         let container = document.querySelector('.portfolio-slider.mobile-hide');
         let items = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide');
-        const showSlidesOnPage = 3
+        const showSlidesOnPage = this.slidesOnPage;
 
         let availableSlides = []
         for (let i = 0; i < items.length; ++i)

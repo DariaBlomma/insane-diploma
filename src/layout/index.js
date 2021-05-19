@@ -408,40 +408,42 @@ const sliders = () => {
                 classToChange: 'repair-hidden',
                 classAction: 'remove',
                 counterCurrent: '.slider-counter-content__current',
-                counterTotal:'.slider-counter-content__total',
+                counterTotal: '.slider-counter-content__total',
                 alt: `${type}`,
                 id:  `${type}-slide`
             });
             repairSliderType.init();
         };
     });
-    const sliderPortfolioMobile = new Slider({
-        slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
-        wrapToClick: '.portfolio-slider-wrap',
-        arrowRight: '.slider-arrow-tablet-mobile_right svg',
-        arrowLeft: '.slider-arrow-tablet-mobile_left svg',
-        classToChange: 'portfolio-hidden',
-        classAction: 'remove',
-        breakpoint: 575,
-        counterCurrent: '.portfolio .slider-counter-content__current',
-        counterTotal: '.portfolio .slider-counter-content__total',
-        arrowProblem: true
-    });
-    sliderPortfolioMobile.init();
+    // const sliderPortfolioMobile = new Slider({
+    //     slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
+    //     wrapToClick: '.portfolio-slider-wrap',
+    //     arrowRight: '.slider-arrow-tablet-mobile_right svg',
+    //     arrowLeft: '.slider-arrow-tablet-mobile_left svg',
+    //     classToChange: 'portfolio-hidden',
+    //     classAction: 'remove',
+    //     breakpoint: 575,
+    //     counterCurrent: '.portfolio .slider-counter-content__current',
+    //     counterTotal: '.portfolio .slider-counter-content__total',
+    //     arrowProblem: true,
+    //     name: 'mobile portfolio slider'
+    // });
+    // sliderPortfolioMobile.init();
 
 
-    const sliderPortfolioTablet = new Slider({
-        slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
-        wrapToClick: '.portfolio-slider-wrap',
-        arrowRight: '#portfolio-arrow_right',
-        slidesOnPage: 2,
-        classToChange: 'portfolio-hidden',
-        classAction: 'remove',
-        breakpoint: 1024,
-        breakpoint2: 575,
-        infinity: false
-    });
-    sliderPortfolioTablet.init();
+    // const sliderPortfolioTablet = new Slider({
+    //     slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
+    //     wrapToClick: '.portfolio-slider-wrap',
+    //     arrowRight: '#portfolio-arrow_right',
+    //     arrowLEft: '#portfolio-arrow_left',
+    //     slidesOnPage: 2,
+    //     classToChange: 'portfolio-hidden',
+    //     classAction: 'remove',
+    //     breakpoint: 1024,
+    //     breakpoint2: 575,
+    //     infinity: false
+    // });
+    // sliderPortfolioTablet.init();
 
     const sliderPortfolioDesctop = new Slider3({
         slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
