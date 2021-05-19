@@ -1,14 +1,15 @@
 const sliders = () => {
-    const formulaTabletSlider = new SliderFormula({
-        slides: '.formula-slider__slide',
-        wrapToClick: '.formula',
-        arrowRight: '.slider-arrow_right-formula',
-        arrowLeft: '.slider-arrow_left-formula',
+    const formulaTabletSlider = new BigSlider({
+        slides: '.formula-item.formula-slider__slide',
+        container: '.formula-slider',
+        arrowRight: '#formula-arrow_right',
+        arrowLeft: '#formula-arrow_left',
         slidesOnPage: 3,
         classToChange: 'hidden',
         classAction: 'remove',
         breakpoint: 1200,
-        centralClass: 'active'
+        centralClass: 'active',
+        name: 'formula'
     });
     formulaTabletSlider.init();
 
