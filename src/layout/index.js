@@ -484,13 +484,16 @@ const sliders = () => {
       counterCurrent: '.slider-counter-content__current',
       counterTotal: '.slider-counter-content__total',
   });
+  if (window.innerWidth > 1024) {
     sliderInnerPortfolioDesctop.init();
-    document.getElementById('popup_portfolio_left').addEventListener('click', event => {
-      const target = event.target;
-      console.log(target);
-
-
+  } else {
+    window.addEventListener('resize', event => {
+      if (window.innerWidth > 1024) {
+        sliderInnerPortfolioDesctop.init();
+      }
     })
+  }
+
 
     const sliderInnerPortfolioTablet = new Slider({
         slides: '.popup-portfolio-slider__slide',
