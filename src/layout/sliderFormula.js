@@ -24,7 +24,6 @@ class SliderFormula {
     }
 
     init() {
-        //console.log(this.wrapToClickSelector);
         if (this.wrapToClickSelector === '.formula') {
             const formulaSlider = document.querySelector('.formula-slider');
             formulaSlider.style.display = 'flex';
@@ -98,17 +97,25 @@ class SliderFormula {
         })
         toDisplay.forEach((value, index) => {
             let item = this.originalItemOrder[value]
+            const popup = item.querySelector('.formula-item-popup');
+            popup.classList.remove('slide-opened');
+            popup.classList.remove('formula-popup-opened');
             item.classList.remove('hidden')
             item.classList.remove('active')
-            container.appendChild(item)
+            item.classList.remove('opened');
+            container.append(item)
             if (index ===  1) {
+              const popup = item.querySelector('.formula-item-popup');
+              popup.classList.add('slide-opened');
+              popup.classList.add('formula-popup-opened')
               item.classList.add('active');
+              item.classList.add('opened');
             }
         })
         for (let i = 0; i < this.originalItemOrder.length; ++i) {
             if (i >= slide && i < slide + showSlidesOnPage)
                 continue
-            container.appendChild(this.originalItemOrder[i])
+            container.append(this.originalItemOrder[i])
         }
 
         this.currentSlide = slide

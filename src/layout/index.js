@@ -9,7 +9,6 @@ import openPopups from './modules/openPopups';
 import openPopupsHover from './modules/openPopupsHover';
 import sendForm from './modules/sendForm';
 import sliders from './modules/sliders';
-// import Slider from './modules/slider';
 import accordion from './modules/accordion';
 import showRepairTypesData from './modules/showRepairTypesData';
 
@@ -34,11 +33,8 @@ openPopups('.popup-transparency', '.transparency-item__img');
 
 openPopupsHover();
 
-
-
 sendForm();
 
-// Slider();
 sliders();
 
 accordion();

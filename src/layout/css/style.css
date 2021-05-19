@@ -1094,6 +1094,7 @@ template, [hidden] {
 
 .formula-slider__slide.active {
   /* display: flex; */
+  opacity: 1;
   margin-top: 40px;
 }
 @media (max-width: 1024px) {
@@ -1343,7 +1344,8 @@ template, [hidden] {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    width: 188px;
+    /* width: 188px; */
+    width: 110px;
     font-size: 19px;
     font-weight: 300;
     text-align: center;
