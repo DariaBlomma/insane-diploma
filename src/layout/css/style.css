@@ -1073,7 +1073,7 @@ template, [hidden] {
   opacity: 1 !important;
 }
 
-.formula-popup-opened:before.down {
+.down:before {
   -webkit-transform: rotate(180deg) !important;
   transform: rotate(180deg) !important;
 }
