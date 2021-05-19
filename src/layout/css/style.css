@@ -9077,6 +9077,6 @@ strong {
     display: none;
 }
 
-.repair-hidden, .portfolio-hidden, .transparency-hidden {
+.repair-hidden, .portfolio-hidden, .transparency-hidden, .portfolio-inner-hidden {
   display: none !important;
 }

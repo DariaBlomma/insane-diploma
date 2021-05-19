@@ -524,6 +524,7 @@ const sliders = () => {
         slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
         wrapToClick: '.portfolio-slider-wrap',
         arrowRight: '#portfolio-arrow_right',
+        arrowLEft: '#portfolio-arrow_left',
         slidesOnPage: 3,
         classToChange: 'portfolio-hidden',
         classAction: 'remove',
@@ -537,14 +538,13 @@ const sliders = () => {
     const sliderInnerPortfolioDesctop = new Slider({
         slides: '.popup-portfolio-slider__slide',
         wrapToClick: '.popup-dialog-portfolio',
-        arrowRight: '#popup_portfolio_right',
-        arrowLeft: '#popup_portfolio_left',
-        classToChange: 'portfolio-hidden',
+        arrowRight: '.popup-arrow.popup-arrow_right',
+        arrowLeft: '.popup-arrow.popup-arrow_right',
+        classToChange: 'portfolio-inner-hidden',
         classAction: 'remove',
         breakpoint2: 1024,
-        counterCurrent: '.popup-portfolio-slider-wrap .slider-counter-content__current',
-        counterTotal: '.popup-portfolio-slider-wrap .slider-counter-content__total',
-        infinity: false
+        counterCurrent: ' .slider-counter-content__current',
+        counterTotal: ' .slider-counter-content__total',
     });
     sliderInnerPortfolioDesctop.init();
 
@@ -612,7 +612,7 @@ sliders();
 
 
 //  не работает в обратную сторону
-const formulaTabletSlider = new Slider({
+const formulaTabletSlider = new Slider3({
     slides: '.formula-slider__slide',
     wrapToClick: '.formula',
     arrowRight: '.slider-arrow_right-formula',

@@ -20,10 +20,10 @@ class Slider3 {
         this.centralClass = centralClass;
         this.arrowProblem = arrowProblem;
         this.infinity = infinity;
+        this.originalItemOrder = document.querySelectorAll('.formula-item.formula-slider__slide')
     }
 
     init() {
-        //console.log(this.wrapToClickSelector);
         if (this.wrapToClickSelector === '.formula') {
             const formulaSlider = document.querySelector('.formula-slider');
             formulaSlider.style.display = 'flex';
@@ -32,6 +32,7 @@ class Slider3 {
             this.arrowRight.style.top = '66%';
             const clone = this.slides[this.slides.length - 1].cloneNode(true);
             formulaSlider.prepend(clone);
+            this.slides[this.slides.length - 1].classList.add('hidden');
             this.slides[this.slides.length - 1].remove();
             this.slides = document.querySelectorAll('.formula-slider__slide');
         }
@@ -68,17 +69,21 @@ class Slider3 {
     }
 
     main () {
-        let items = document.querySelectorAll('.formula-item')
+        let items = document.querySelectorAll('.formula-item.formula-slider__slide');
         document.getElementById('formula-arrow_left').addEventListener('click',
-            event => this.displaySlide((this.currentSlide - 1) % items.length))
+            event => this.displaySlide((items.length + this.currentSlide - 1) % items.length))
+
         document.getElementById('formula-arrow_right').addEventListener('click',
             event => this.displaySlide((this.currentSlide + 1) % items.length))
         this.displaySlide(this.currentSlide)
+    this.displaySlide(this.currentSlide)
     }
 
     displaySlide(slide) {
-        console.log(slide)
+        let container = document.querySelector('.formula-slider')
+
         let items = document.querySelectorAll('.formula-item.formula-slider__slide')
+        items[this.currentSlide].classList.add('active');
         const showSlidesOnPage = 3
 
         let availableSlides = []
@@ -91,12 +96,27 @@ class Slider3 {
         for (let i = slide; i < slide + showSlidesOnPage; ++i)
             toDisplay.push(availableSlides[i])
 
-        items.forEach(selector => selector.classList.add('hidden'))
-        toDisplay.forEach(value => {
-            items[value].classList.remove('hidden')
-            console.log(items[value])
+        items.forEach(item => {
+          item.classList.remove('active')
+            item.classList.add('hidden')
+            item.remove()
         })
 
-        this.currentSlide = slide % items.length
+        toDisplay.forEach((value, index) => {
+            let item = this.originalItemOrder[value]
+            item.classList.remove('hidden')
+            item.classList.remove('active')
+            container.appendChild(item);
+            if (index === 1) {
+              item.classList.add('active')
+            }
+        })
+        for (let i = 0; i < this.originalItemOrder.length; ++i) {
+            if (i >= slide && i < slide + showSlidesOnPage)
+                continue
+            container.appendChild(this.originalItemOrder[i])
+        }
+
+        this.currentSlide = slide
     }
 }

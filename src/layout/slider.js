@@ -9,6 +9,7 @@ class Slider {
         this.arrowRight = document.querySelector(arrowRight);
         this.arrowRightSelector = arrowRight;
         this.arrowLeft = document.querySelector(arrowLeft);
+        console.log('this.arrowLeft: ', this.arrowLeft);
         this.arrowLeftSelector = arrowLeft;
         this.currentSlide = currentSlide;
         this.slidesOnPage = slidesOnPage;
@@ -113,7 +114,7 @@ class Slider {
             btnRight;
         let currentSlide = this.currentSlide;
 
-        
+
         if (this.centralClass) {
             this.slides[1].classList.add(this.centralClass);
         }
@@ -141,7 +142,7 @@ class Slider {
                 });
             }
             if (this.counterTotal) {
-                this.counterTotal.textContent = this.slides.length;                
+                this.counterTotal.textContent = this.slides.length;
                 this.counterCurrent.textContent = 1;
             }
 
@@ -166,9 +167,14 @@ class Slider {
                     condition = !target.closest(this.arrowRightSelector) &&  !target.closest(this.arrowLeftSelector);
                 }
 
+                console.log(this.arrowLeft);
+                console.log(this.arrowRight);
+                console.log(target.closest(this.arrowRightSelector));
+                console.log(target.closest(this.arrowLeftSelector));
                 if (condition) {
                     return;
                 }
+
 
                 this.prevSlide(this.slides, currentSlide, this.classToChange, this.slidesOnPage, this.classAction);
 
