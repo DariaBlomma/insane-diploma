@@ -81,34 +81,11 @@ class Slider {
     }
 
     getXMatch (elem, event) {
-        // let left;
-        // let width;
-        //   if (this.arrowLeftSelector === '#popup_portfolio_left') {
-
-        //     left = 20;
-        //     width = 40;
-        //   } else if (this.arrowRightSelector === '#popup_portfolio_right') {
-        //     left = 673;
-        //     width = 40;
-
-
-        //     // left = this.wrapToClick.getBoundingClientRect().left;
-
-        //     // console.log('left: ', left);
-        //     console.log('event.x : ', event.x );
-        //   } else {
-        //     left = elem.getBoundingClientRect().left;
-        //     width = elem.clientWidth;
-        //   }
-
-        left = elem.getBoundingClientRect().left;
-        width = elem.clientWidth;
-        return event.x === left || (event.x > left && event.x < left + width);
-
+        const  left = elem.getBoundingClientRect().left;
+        return event.x === left || (event.x > left && event.x < left + elem.clientWidth);
     }
 
     main () {
-
         let condition;
         let btnLeft,
             btnRight;
@@ -167,13 +144,6 @@ class Slider {
                     condition = !target.closest(this.arrowRightSelector) &&  !target.closest(this.arrowLeftSelector);
                 }
 
-                if (this.name === 'inner portfolio descktop slider') {
-                  console.log('target', target);
-                  console.log(this.arrowLeft);
-                  console.log(this.arrowRight);
-                  console.log(target.closest(this.arrowRightSelector));
-                  console.log(target.closest(this.arrowLeftSelector));
-                }
 
                 if (condition) {
                     return;

@@ -71,20 +71,7 @@ const sliders = () => {
           repairSliderType.init();
       };
   });
-  // const sliderPortfolioMobile = new Slider({
-  //     slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
-  //     wrapToClick: '.portfolio-slider-wrap',
-  //     arrowRight: '.slider-arrow-tablet-mobile_right svg',
-  //     arrowLeft: '.slider-arrow-tablet-mobile_left svg',
-  //     classToChange: 'portfolio-hidden',
-  //     classAction: 'remove',
-  //     breakpoint: 575,
-  //     counterCurrent: '.portfolio .slider-counter-content__current',
-  //     counterTotal: '.portfolio .slider-counter-content__total',
-  //     arrowProblem: true,
-  //     name: 'mobile portfolio slider'
-  // });
-  // sliderPortfolioMobile.init();
+
 
 
   // const sliderPortfolioTablet = new Slider({
@@ -100,6 +87,19 @@ const sliders = () => {
   //     infinity: false
   // });
   // sliderPortfolioTablet.init();
+  const sliderPortfolioMobile = new Slider({
+    slides: '.portfolio-slider-mobile .portfolio-slider__slide-frame',
+    wrapToClick: '.portfolio-slider-wrap',
+    arrowRight: '.slider-arrow-tablet-mobile_right svg',
+    arrowLeft: '.slider-arrow-tablet-mobile_left svg',
+    classToChange: 'portfolio-hidden',
+    classAction: 'remove',
+    breakpoint: 575,
+    counterCurrent: '.portfolio .slider-counter-content__current',
+    counterTotal: '.portfolio .slider-counter-content__total',
+    arrowProblem: true,
+});
+sliderPortfolioMobile.init();
 
   const sliderPortfolioDesctop = new Slider3({
       slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',

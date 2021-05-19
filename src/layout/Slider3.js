@@ -2,7 +2,7 @@ class Slider3 {
     constructor({ slides, wrapToClick, arrowRight, arrowLeft, currentSlide = 0,
         slidesOnPage = 1, classToChange, classAction, breakpoint = 5000,
         breakpoint2 = 0, counterCurrent, counterTotal, centralClass, arrowProblem = false,
-        infinity = true, name }) {
+        infinity = true }) {
         this.slides = document.querySelectorAll(slides);
         this.wrapToClick = document.querySelector(wrapToClick);
         this.wrapToClickSelector = wrapToClick;
@@ -23,7 +23,6 @@ class Slider3 {
         this.infinity = infinity;
         this.click = 0;
         this.originalItemOrder = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide');
-        this.name = name;
     }
 
     init() {
@@ -31,8 +30,9 @@ class Slider3 {
     }
 
     main () {
-      let items = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide')
-        document.getElementById('portfolio-arrow_left').addEventListener('click',
+      // portfolio-slider-mobile tablet-hide desktop-hide
+      let items = document.querySelectorAll('.portfolio-slider.mobile-hide .portfolio-slider__slide');
+      document.getElementById('portfolio-arrow_left').addEventListener('click',
             event => {
               this.click += 1;
               this.displaySlide((items.length + this.currentSlide - 1) % items.length)
