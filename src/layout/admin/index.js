@@ -322,8 +322,8 @@ const mainFunction = () => {
             // const pass = document.cookie.substring(index + 1);
             // console.log('pass: ', pass);
 
-            const myLogin = 'daria';
-            const myPassword = 'glo';
+            const myLogin = 'admin';
+            const myPassword = 'admin';
 
             const warnings = document.querySelectorAll('.text-warning');
             warnings.forEach(item => {
