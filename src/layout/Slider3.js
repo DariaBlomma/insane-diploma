@@ -66,11 +66,15 @@ class Slider3 {
             item.classList.remove(this.classToChange);
             container.append(item);
         })
+        const arrowRight = document.getElementById('portfolio-arrow_right');
+        const arrowLeft = document.getElementById('portfolio-arrow_left');
         for (let i = 0; i < this.originalItemOrder.length; ++i) {
             if (slide === 3 && i === 4) {
-                document.getElementById('portfolio-arrow_right').style.display = 'none';
+                arrowRight.style.display = 'none';
+                arrowLeft.style.display = '';
             } else if (this.click > 0 && slide === 0 && i === 4) {
-                document.getElementById('portfolio-arrow_left').style.display = 'none';
+                arrowLeft.style.display = 'none';
+                arrowRight.style.display = '';
             } else {
                 if (i >= slide && i < slide + showSlidesOnPage)
                     continue
