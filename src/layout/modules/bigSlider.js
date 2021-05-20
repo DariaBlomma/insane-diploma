@@ -1,4 +1,4 @@
-class BigSlider {
+export default class BigSlider {
     constructor({ slides, container, arrowRight, arrowLeft, currentSlide = 0,
         slidesOnPage = 1, classToChange, classAction, breakpoint = 5000,
         breakpoint2 = 0, counterCurrent, counterTotal, centralClass, click = 0, infinity = true, name }) {

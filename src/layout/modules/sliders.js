@@ -1,4 +1,7 @@
+import Slider from './slider.js';
+import BigSlider from './bigSlider.js';
 const sliders = () => {
+
     const formulaTabletSlider = new BigSlider({
         slides: '.formula-item.formula-slider__slide',
         container: '.formula-slider',

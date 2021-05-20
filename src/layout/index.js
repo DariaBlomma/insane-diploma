@@ -1,6 +1,4 @@
-// import './index.html';
-// // import './css/style.css';
-// import slider from './modules/slider';
+
 import openPhoneNumber from './modules/openPhoneNumber';
 import toggleMenu from './modules/toggleMenu';
 import scroll from './modules/scroll';
@@ -8,14 +6,11 @@ import validation from './modules/validation';
 import openPopups from './modules/openPopups';
 import openPopupsHover from './modules/openPopupsHover';
 import sendForm from './modules/sendForm';
-
 import sliders from './modules/sliders';
 import accordion from './modules/accordion';
 import showRepairTypesData from './modules/showRepairTypesData';
 
-// slider();
 openPhoneNumber();
-
 
 toggleMenu();
 

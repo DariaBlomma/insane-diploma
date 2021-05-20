@@ -1,3 +1,4 @@
+import maskPhone from './maskPhone';
 const validation = () => {
     const phones = document.querySelectorAll('[name="phone"]');
     document.addEventListener('input', event => {
