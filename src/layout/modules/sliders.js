@@ -87,29 +87,33 @@ const sliders = () => {
     });
     sliderPortfolioMobile.init();
 
-    const sliderPortfolioDesctop = new Slider3({
+    const sliderPortfolioDesctop = new BigSlider({
         slides: '.portfolio-slider.mobile-hide .portfolio-slider__slide',
-        wrapToClick: '.portfolio-slider-wrap',
+        container: '.portfolio-slider.mobile-hide',
         arrowRight: '#portfolio-arrow_right',
-        arrowLEft: '#portfolio-arrow_left',
+        arrowLeft: '#portfolio-arrow_left',
         slidesOnPage: 3,
         classToChange: 'portfolio-hidden',
         classAction: 'remove',
         breakpoint2: 1024,
-        infinity: false
-    });
+        infinity: false,
+        name: 'portfolio-desctop-slider'
+    })
+
     sliderPortfolioDesctop.init();
 
-    const sliderInnerPortfolioDesctop = new SliderPopupDescPortfolio({
+    // проблемный слайдер без стрелочек и счетчика
+    const sliderInnerPortfolioDesctop = new BigSlider({
         slides: '.popup-portfolio-slider__slide',
-        wrapToClick: '.popup-dialog-portfolio',
-        arrowRight: '.popup-arrow.popup-arrow_right',
-        arrowLeft: '.popup-arrow.popup-arrow_left',
+        container: '.popup-portfolio-slider-wrap',
+        arrowRight: '.popup-dialog.popup-dialog-portfolio #popup_portfolio_right',
+        arrowLeft: '.popup-dialog.popup-dialog-portfolio #popup_portfolio_left',
         classToChange: 'portfolio-inner-hidden',
         classAction: 'remove',
         breakpoint2: 1024,
-        counterCurrent: '.slider-counter-content__current',
-        counterTotal: '.slider-counter-content__total',
+        counterCurrent: '.popup-dialog.popup-dialog-portfolio .slider-counter .slider-counter-content__current',
+        counterTotal: '.popup-dialog.popup-dialog-portfolio .slider-counter .slider-counter-content__total',
+        name: 'portfolio-problem-slider'
     });
     if (window.innerWidth > 1024) {
         sliderInnerPortfolioDesctop.init();
