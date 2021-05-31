@@ -34,8 +34,16 @@ const openPopups = (popupSelector, elemSelector, textSelector) => {
     }
     const popup = document.querySelector(popupSelector);
     const closeBtn = popup.querySelector('.close');
+    const frames = document.querySelectorAll('.portfolio-slider__slide-frame');
+    let img;
     document.addEventListener('click', event => {
         const target = event.target;
+        frames.forEach((item, index) => {
+          if (target === item) {
+            img = item.querySelector('img').alt.slice(-1);
+              // console.log(img);
+          }
+        })
         let condition;
         if (elemSelector === '.portfolio-slider__slide-frame' && window.innerWidth < 900) {
             const btnLeft = getYMatch(arrowLeft, event) && getXMatch(arrowLeft, event);

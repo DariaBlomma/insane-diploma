@@ -11,6 +11,7 @@ export default class BigSlider {
         this.arrowLeft = document.querySelector(arrowLeft);
         this.arrowLeftSelector = arrowLeft;
         this.currentSlide = currentSlide;
+        console.log('this.currentSlide: ', this.currentSlide);
         this.slidesOnPage = slidesOnPage;
         this.classToChange = classToChange;
         this.classAction = classAction;
@@ -42,12 +43,21 @@ export default class BigSlider {
             this.arrowLeft.style.top = '300px';
             const sliderCounter = document.querySelector('.popup-dialog.popup-dialog-portfolio .slider-counter');
             sliderCounter.style.top = '550px';
+            // document.addEventListener('click', event => {
+            //   const target = event.target;
+            //   if (target.matches('.portfolio-slider__slide-frame')) {
+            //     const img = target.querySelector('img').alt.slice(-1);
+            //     this.currentSlide = Number(img);
+            //     //console.log(' this.currentSlide: ',  this.currentSlide);
+            //   }
+            // })
         }
 
         this.main();
     }
 
     main () {
+      console.log(' this.currentSlide: ',  this.currentSlide);
         if (this.counterCurrent) {
             this.counterTotal.textContent = this.originalItemsOrder.length;
         }
@@ -65,6 +75,7 @@ export default class BigSlider {
     }
 
     displaySlide(slide) {
+
         const container = document.querySelector(this.containerSelector);
         const items = document.querySelectorAll(this.slidesSelector);
 

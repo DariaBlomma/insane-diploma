@@ -15,6 +15,17 @@ const sliders = () => {
         name: 'formula'
     });
     formulaTabletSlider.init();
+    // const slides = document.querySelectorAll('.repair-types-slider__slide');
+    //                 slides.forEach(item => {
+    //                 item.classList.add('repair-hidden');
+    //                 const alt = item.querySelector('img').alt;
+    //                 if (alt === 'electro') {
+    //                     item.classList.remove('repair-hidden');
+    //                     item.classList.add('electro-slide');
+    //                     // slideSelector = `.electro-slide`;
+    //                 }
+    //             });
+
 
     const repairSliderPart = new Slider({
         slides: '.repair-types-slider__slide',
@@ -31,8 +42,9 @@ const sliders = () => {
     repairSliderPart.init();
 
     const repairTypes = document.getElementById('repair-types');
-    const navListRepair = document.querySelector('.nav-list-repair');
+    const navListRepair = document.querySelector('.nav-list-repair')
 
+    // let slideSelector;
     repairTypes.addEventListener('click', event => {
         event.preventDefault();
         const target = event.target;
@@ -60,8 +72,21 @@ const sliders = () => {
             target.classList.add('active');
 
             const type = target.dataset.repair;
+            //     slides.forEach(item => {
+            //         item.classList.add('repair-hidden');
+            //         const alt = item.querySelector('img').alt;
+            //         if (alt === type) {
+            //             item.classList.remove('repair-hidden');
+            //             item.classList.add(`${type}-slide`);
+            //             slideSelector = `.${type}-slide`;
+            //         }
+            //     });
+
+
+            // console.log(slides);
             const repairSliderType = new Slider({
                 slides: '.repair-types-slider__slide',
+                // slides: `${slideSelector}`,
                 wrapToClick: '#repair-types',
                 arrowRight: '#repair-types-arrow_right',
                 arrowLeft: '#repair-types-arrow_left',
@@ -105,12 +130,21 @@ const sliders = () => {
 
     sliderPortfolioDesctop.init();
 
+    let img = 1;
+    document.addEventListener('click', event => {
+        const target = event.target;
+        if (target.matches('.portfolio-slider__slide-frame')) {
+            img = Number(target.querySelector('img').alt.slice(-1));
+            console.log('img: ', img);
+        }
+    })
     // проблемный слайдер без стрелочек и счетчика
     const sliderInnerPortfolioDesctop = new BigSlider({
         slides: '.popup-portfolio-slider__slide',
         container: '.popup-portfolio-slider-wrap',
         arrowRight: '.popup-dialog.popup-dialog-portfolio #popup_portfolio_right',
         arrowLeft: '.popup-dialog.popup-dialog-portfolio #popup_portfolio_left',
+        currentSlide: `${img - 1}`,
         classToChange: 'portfolio-inner-hidden',
         classAction: 'remove',
         breakpoint2: 1024,
